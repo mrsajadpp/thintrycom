@@ -107,6 +107,17 @@ a {
     border-radius: 85px;
 }
 
+.editForm .inputs button {
+    width: 100%;
+    height: 100%;
+    background-color: #6fbf7e;
+    border: none;
+    border-radius: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .editForm .inputs .textarea {
     display: flex;
     align-items: center;

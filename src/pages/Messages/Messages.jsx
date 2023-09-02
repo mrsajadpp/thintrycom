@@ -39,19 +39,15 @@ function Messages(props) {
     const updatedTitle = props.title ? `${props.title} - Thintry` : defaultTitle;
     document.title = updatedTitle;
 
-    const metaDescription = props.description
-      ? props.description
-      : "Welcome to Thintry, a microblogging platform.";
-    const metaKeywords = props.keywords
-      ? `${props.keywords}, microblog, Thintry, social media`
-      : "microblog, Thintry, social media";
+    const metaDescription = props.description ? props.description : "Welcome to Thintry, a microblogging platform.";
+    const metaKeywords = props.keywords ? `${props.keywords}, microblog, Thintry, social media` : "microblog, Thintry, social media";
 
-    const metaDescriptionTag = document.head.querySelector('meta[name="description"]');
+    const metaDescriptionTag = document.querySelector('meta[name="description"]');
     if (metaDescriptionTag) {
       metaDescriptionTag.content = metaDescription;
     }
 
-    const metaKeywordsTag = document.head.querySelector('meta[name="keywords"]');
+    const metaKeywordsTag = document.querySelector('meta[name="keywords"]');
     if (metaKeywordsTag) {
       metaKeywordsTag.content = metaKeywords;
     }

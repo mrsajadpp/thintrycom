@@ -32,6 +32,7 @@ function Editprofile(props) {
         lastname: '',
         username: '',
         about: '',
+        profile: ''
     });
 
     useEffect(() => {
@@ -138,12 +139,19 @@ function Editprofile(props) {
         const form = event.target;
         const formData = new FormData(form);
 
+        const fileInput = document.querySelector('input[type="file"]');
+        formData.append('profilePicture', fileInput.files[0]);
+        formData.append('uid', userData._id);
+
         try {
-            let response = await Axios.get('https://api.thintry.com/user/update', { params: { firstname: formData.get('firstname'), lastname: formData.get('lastname'), username: formData.get('username'), about: formData.get('about'), _id: userData._id } }, {
+            console.log(userData._id)
+
+            let response = await Axios.post('https://api.thintry.com/user/update', formData, {
                 headers: {
                     'Access-Control-Allow-Origin': true,
+                    'Content-Type': 'multipart/form-data' // Set the content type to multipart/form-data
                 }
-            })
+            });
 
             if (response.data.status) {
                 setCookie('userData', JSON.stringify(response.data.user), 1); // Cookie will expire in 1 day
@@ -197,6 +205,24 @@ function Editprofile(props) {
                 });
         }
     }
+
+    const [selectedFileName, setSelectedFileName] = useState('');
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFileName(file.name);
+        } else {
+            setSelectedFileName('');
+        }
+        addChange(change + 1);
+        handleUSername(e);
+    };
+
+    const openFileInput = () => {
+        const choosePic = document.getElementById('choosePic');
+        choosePic.click();
+    };
 
     return (
         <div>
@@ -284,6 +310,89 @@ function Editprofile(props) {
                                     onChange={handleUSername}
                                 />
                                 <span id="usernameError" className="error"></span>
+                            </div>
+                            <div className="input">
+                                <input type="file" id='choosePic' onChange={handleFileChange} hidden />
+                                <button
+                                    type="button" onClick={openFileInput}>
+                                    <box-icon name='image-add'></box-icon><span>{selectedFileName}</span>
+                                </button>
+                            </div>
+                            <div className="name">
+                                <div className="input">
+                                    <input
+                                        type="number"
+                                        className="noerror-inp"
+                                        id="day"
+                                        name="day"
+                                        defaultValue={userData.dob ? userData.dob.day : ''}
+                                        placeholder="DOB Day"
+                                        required
+                                        autoComplete="off"
+                                        onChange={(e) => {
+                                            if (e.target.value.length > 2) {
+                                                e.target.value = e.target.value.substring(0, 2)
+                                            }
+                                            if (parseInt(e.target.value) > 31) {
+                                                e.target.classList.replace('noerror-inp', 'error-inp');
+                                            } else {
+                                                e.target.classList.replace('error-inp', 'noerror-inp');
+                                            }
+                                            handleUSername(e);
+                                        }}
+                                    />
+                                    <span id="firstnameError" className="error"></span>
+                                </div>
+                                &nbsp;
+                                <div className="input">
+                                    <input
+                                        className="noerror-inp"
+                                        type="number"
+                                        id="month"
+                                        defaultValue={userData.dob ? userData.dob.month : ''}
+                                        name="month"
+                                        placeholder="DOB Month"
+                                        required
+                                        autoComplete="off"
+                                        onChange={(e) => {
+                                            if (e.target.value.length > 2) {
+                                                e.target.value = e.target.value.substring(0, 2)
+                                            }
+                                            if (parseInt(e.target.value) > 12) {
+                                                e.target.classList.replace('noerror-inp', 'error-inp');
+                                            } else {
+                                                e.target.classList.replace('error-inp', 'noerror-inp');
+                                            }
+                                            handleUSername(e);
+                                        }}
+                                    />
+                                    <span id="lastnameError" className="error"></span>
+                                </div>
+                                &nbsp;
+                                <div className="input">
+                                    <input
+                                        className="noerror-inp"
+                                        type="number"
+                                        id="year"
+                                        defaultValue={userData.dob ? userData.dob.year : ''}
+                                        name="year"
+                                        placeholder="DOB Year"
+                                        required
+                                        autoComplete="off"
+                                        onChange={(e) => {
+                                            if (e.target.value.length > 4) {
+                                                e.target.value = e.target.value.substring(0, 2)
+                                            }
+                                            if (parseInt(e.target.value) > 2014) {
+                                                e.target.classList.replace('noerror-inp', 'error-inp');
+                                            } else {
+                                                e.target.classList.replace('error-inp', 'noerror-inp');
+                                            }
+                                            handleUSername(e);
+                                        }}
+                                    />
+                                    <span id="lastnameError" className="error"></span>
+                                </div>
                             </div>
                             <div className="input">
                                 <input

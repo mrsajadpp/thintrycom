@@ -30,6 +30,11 @@ function Profile(props) {
     return null;
   }
 
+  function delete_cookie(name) {
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+// delete_cookie('userData')
+
   useEffect(() => {
     // Check if the user is already logged in using the cookie
     let userData = getUserDataFromCookie();
@@ -148,7 +153,7 @@ function Profile(props) {
                 // Actual content when not loading
                 userData.profile && userData.profile ? (
                   <img
-                    src={userData.profile.startsWith('/') ? 'https://thintry.com' + userData.profile : userData.profile}
+                    src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile}
                     alt={userData.firstname + ' ' + userData.lastname}
                     onError={(event) => {
                       event.target.src = 'https://api.thintry.com/img/demopic.png';
