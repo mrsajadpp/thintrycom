@@ -31,22 +31,29 @@ function Home(props) {
     useEffect(() => {
         async function fetchAllTags() {
             try {
-                const response = await Axios.get('https://api.thintry.com/fetch/user/tags/all', {
+                const response = await fetch('https://api.thintry.com/fetch/user/tags/all', {
                     headers: {
                         'Access-Control-Allow-Origin': true,
                     },
                 });
 
-                if (response.data.status) {
-                    setTags(response.data.tags);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status) {
+                        setTags(data.tags);
+                    } else {
+                        setTags([]);
+                    }
                 } else {
-                    setTags('')
+                    console.error('Failed to fetch data');
                 }
+
                 setIsLoading(false);
             } catch (error) {
                 console.error('Fetching failed', error);
             }
         }
+
         fetchAllTags();
     }, [props, tags]);
 
