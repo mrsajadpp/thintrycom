@@ -168,27 +168,31 @@ function Profile(props) {
               </div>
             </SkeletonTheme>
             <div className="name-tag">
-              <div className="name">
-                {userData.firstname && userData.lastname ? (
-                  <>
-                    {userData.firstname} {userData.lastname}
-                  </>
-                ) : (
-                  <Skeleton width={100} />
-                )}
-                {userData.official ? (
-                  <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
-                ) : (
-                  userData.verified ? (
-                    <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+              <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
+                <div className="name">
+                  {userData.firstname && userData.lastname ? (
+                    <>
+                      {userData.firstname} {userData.lastname}
+                    </>
                   ) : (
-                    <p></p>
-                  )
-                )}
-              </div>
-              <div className="username">
-                {userData.username ? `@${userData.username}` : <Skeleton width={100} />}
-              </div>
+                    <Skeleton width={100} />
+                  )}
+                  {userData.official ? (
+                    <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
+                  ) : (
+                    userData.verified ? (
+                      <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                    ) : (
+                      <p></p>
+                    )
+                  )}
+                </div>
+              </SkeletonTheme>
+              <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
+                <div className="username">
+                  {userData.username ? `@${userData.username}` : <Skeleton width={100} />}
+                </div>
+              </SkeletonTheme>
             </div>
           </div>
           <div className="list">
