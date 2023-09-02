@@ -4,7 +4,7 @@ import Axios from 'axios';
 import './Profile.css'
 import About from '../../components/About/About';
 import Tag from '../../components/Tag/Tag';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 function Profile(props) {
@@ -32,8 +32,8 @@ function Profile(props) {
 
   function delete_cookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
-// delete_cookie('userData')
+  }
+  // delete_cookie('userData')
 
   useEffect(() => {
     // Check if the user is already logged in using the cookie
@@ -145,26 +145,28 @@ function Profile(props) {
       <div className="profile-container">
         <div className="profile-card">
           <div className="dp">
-            <div className="dp-ring">
-              {!userData.profile ? (
-                // Skeleton loader for the user profile image
-                <Skeleton width={100} height={100} />
-              ) : (
-                // Actual content when not loading
-                userData.profile && userData.profile ? (
-                  <img
-                    src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile}
-                    alt={userData.firstname + ' ' + userData.lastname}
-                    onError={(event) => {
-                      event.target.src = 'https://api.thintry.com/img/demopic.png';
-                      event.target.onError = null;
-                    }}
-                  />
+            <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
+              <div className="dp-ring">
+                {!userData.profile ? (
+                  // Skeleton loader for the user profile image
+                  <Skeleton width={100} height={100} />
                 ) : (
-                  <img src="https://api.thintry.com/img/demopic.png" alt="Default Profile" />
-                )
-              )}
-            </div>
+                  // Actual content when not loading
+                  userData.profile && userData.profile ? (
+                    <img
+                      src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile}
+                      alt={userData.firstname + ' ' + userData.lastname}
+                      onError={(event) => {
+                        event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
+                        event.target.onError = null;
+                      }}
+                    />
+                  ) : (
+                    <img src="https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg" alt="Default Profile" />
+                  )
+                )}
+              </div>
+            </SkeletonTheme>
             <div className="name-tag">
               <div className="name">
                 {userData.firstname && userData.lastname ? (

@@ -144,7 +144,7 @@ function Editprofile(props) {
         formData.append('uid', userData._id);
 
         try {
-            console.log(userData._id)
+            console.log(userData)
 
             let response = await Axios.post('https://api.thintry.com/user/update', formData, {
                 headers: {
@@ -315,7 +315,7 @@ function Editprofile(props) {
                                 <input type="file" id='choosePic' onChange={handleFileChange} hidden />
                                 <button
                                     type="button" onClick={openFileInput}>
-                                    <box-icon name='image-add'></box-icon><span>{selectedFileName}</span>
+                                    <box-icon name='image-add'></box-icon><span>{userData.profile ? userData.profile.slice(0, 10) + '...' : selectedFileName.slice(0, 10) + '...'}</span>
                                 </button>
                             </div>
                             <div className="name">

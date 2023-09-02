@@ -1,6 +1,6 @@
 import { React, useEffect, useState, Suspense, lazy } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Axios from 'axios';
 import Audioplayer from '../../components/Audioplayer/Audioplayer';
@@ -232,346 +232,348 @@ function Home(props) {
     return (
         <div style={{ marginTop: '60px' }} id='page'>
             {isLoading ? (<>
-                <div className="tweet">
-                    <div className="tweet-container pt pb pr pl">
-                        {/* User */}
-                        <div className="user pr">
-                            <div className="userl" >
-                                <div className="profile">
-                                    <Skeleton width={50} height={50} />
+                <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
+                    <div className="tweet">
+                        <div className="tweet-container pt pb pr pl">
+                            {/* User */}
+                            <div className="user pr">
+                                <div className="userl" >
+                                    <div className="profile">
+                                        <Skeleton width={50} height={50} />
+                                    </div>
+                                    <div className="username">
+                                        <div className="name">
+                                            <Skeleton width={100} />
+                                        </div>
+
+                                        <div className="handle">
+                                            <Skeleton width={80} />
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div className="username">
-                                    <div className="name">
-                                        <Skeleton width={100} />
-                                    </div>
-
-                                    <div className="handle">
-                                        <Skeleton width={80} />
-                                    </div>
-
+                                <div className="userr">
+                                    <Skeleton width={100} height={40} />
                                 </div>
                             </div>
-                            <div className="userr">
-                                <Skeleton width={100} height={40} />
+
+                            {/* Tweet content */}
+                            <div className="tweet-content pt">
+                                <Skeleton width={'100%'} height={100} />
+                            </div>
+
+                            {/* Date and location */}
+                            <div className="date pt pb">
+                                <>
+                                    <Skeleton width={100} />
+                                    <Skeleton width={100} />
+                                </>
+                            </div>
+
+
+                            {/* Upvotes and Downvotes */}
+                            <div className="rl pt pb">
+                                <div className="skeleton-loader" style={{ display: 'flex' }}>
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                    {' '}
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Tweet content */}
-                        <div className="tweet-content pt">
-                            <Skeleton width={'100%'} height={100} />
-                        </div>
+                        {/* Icons */}
+                        <div className="icons">
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
 
-                        {/* Date and location */}
-                        <div className="date pt pb">
-                            <>
-                                <Skeleton width={100} />
-                                <Skeleton width={100} />
-                            </>
-                        </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
 
 
-                        {/* Upvotes and Downvotes */}
-                        <div className="rl pt pb">
-                            <div className="skeleton-loader" style={{ display: 'flex' }}>
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
-                                {' '}
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
+                            </div>
+
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
                             </div>
                         </div>
                     </div>
-
-                    {/* Icons */}
-                    <div className="icons">
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-                    </div>
-                </div>
-                <div className="tweet">
-                    <div className="tweet-container pt pb pr pl">
-                        {/* User */}
-                        <div className="user pr">
-                            <div className="userl" >
-                                <div className="profile">
-                                    <Skeleton width={50} height={50} />
-                                </div>
-                                <div className="username">
-                                    <div className="name">
-                                        <Skeleton width={100} />
+                    <div className="tweet">
+                        <div className="tweet-container pt pb pr pl">
+                            {/* User */}
+                            <div className="user pr">
+                                <div className="userl" >
+                                    <div className="profile">
+                                        <Skeleton width={50} height={50} />
                                     </div>
+                                    <div className="username">
+                                        <div className="name">
+                                            <Skeleton width={100} />
+                                        </div>
 
-                                    <div className="handle">
-                                        <Skeleton width={80} />
+                                        <div className="handle">
+                                            <Skeleton width={80} />
+                                        </div>
+
                                     </div>
-
+                                </div>
+                                <div className="userr">
+                                    <Skeleton width={100} height={40} />
                                 </div>
                             </div>
-                            <div className="userr">
-                                <Skeleton width={100} height={40} />
+
+                            {/* Tweet content */}
+                            <div className="tweet-content pt">
+                                <Skeleton width={'100%'} height={100} />
                             </div>
-                        </div>
 
-                        {/* Tweet content */}
-                        <div className="tweet-content pt">
-                            <Skeleton width={'100%'} height={100} />
-                        </div>
-
-                        {/* Date and location */}
-                        <div className="date pt pb">
-                            <>
-                                <Skeleton width={100} />
-                                <Skeleton width={100} />
-                            </>
-                        </div>
-
-
-                        {/* Upvotes and Downvotes */}
-                        <div className="rl pt pb">
-                            <div className="skeleton-loader" style={{ display: 'flex' }}>
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
-                                {' '}
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
+                            {/* Date and location */}
+                            <div className="date pt pb">
+                                <>
+                                    <Skeleton width={100} />
+                                    <Skeleton width={100} />
+                                </>
                             </div>
-                        </div>
-                    </div>
-
-                    {/* Icons */}
-                    <div className="icons">
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
 
 
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-                    </div>
-                </div>
-                <div className="tweet">
-                    <div className="tweet-container pt pb pr pl">
-                        {/* User */}
-                        <div className="user pr">
-                            <div className="userl" >
-                                <div className="profile">
-                                    <Skeleton width={50} height={50} />
-                                </div>
-                                <div className="username">
-                                    <div className="name">
-                                        <Skeleton width={100} />
+                            {/* Upvotes and Downvotes */}
+                            <div className="rl pt pb">
+                                <div className="skeleton-loader" style={{ display: 'flex' }}>
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
                                     </div>
-
-                                    <div className="handle">
-                                        <Skeleton width={80} />
+                                    {' '}
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
                                     </div>
-
                                 </div>
                             </div>
-                            <div className="userr">
-                                <Skeleton width={100} height={40} />
+                        </div>
+
+                        {/* Icons */}
+                        <div className="icons">
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
                             </div>
-                        </div>
 
-                        {/* Tweet content */}
-                        <div className="tweet-content pt">
-                            <Skeleton width={'100%'} height={100} />
-                        </div>
-
-                        {/* Date and location */}
-                        <div className="date pt pb">
-                            <>
-                                <Skeleton width={100} />
-                                <Skeleton width={100} />
-                            </>
-                        </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
 
 
-                        {/* Upvotes and Downvotes */}
-                        <div className="rl pt pb">
-                            <div className="skeleton-loader" style={{ display: 'flex' }}>
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
-                                {' '}
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
+                            </div>
+
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
                             </div>
                         </div>
                     </div>
-
-                    {/* Icons */}
-                    <div className="icons">
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-                    </div>
-                </div>
-                <div className="tweet">
-                    <div className="tweet-container pt pb pr pl">
-                        {/* User */}
-                        <div className="user pr">
-                            <div className="userl" >
-                                <div className="profile">
-                                    <Skeleton width={50} height={50} />
-                                </div>
-                                <div className="username">
-                                    <div className="name">
-                                        <Skeleton width={100} />
+                    <div className="tweet">
+                        <div className="tweet-container pt pb pr pl">
+                            {/* User */}
+                            <div className="user pr">
+                                <div className="userl" >
+                                    <div className="profile">
+                                        <Skeleton width={50} height={50} />
                                     </div>
+                                    <div className="username">
+                                        <div className="name">
+                                            <Skeleton width={100} />
+                                        </div>
 
-                                    <div className="handle">
-                                        <Skeleton width={80} />
+                                        <div className="handle">
+                                            <Skeleton width={80} />
+                                        </div>
+
                                     </div>
-
+                                </div>
+                                <div className="userr">
+                                    <Skeleton width={100} height={40} />
                                 </div>
                             </div>
-                            <div className="userr">
-                                <Skeleton width={100} height={40} />
+
+                            {/* Tweet content */}
+                            <div className="tweet-content pt">
+                                <Skeleton width={'100%'} height={100} />
+                            </div>
+
+                            {/* Date and location */}
+                            <div className="date pt pb">
+                                <>
+                                    <Skeleton width={100} />
+                                    <Skeleton width={100} />
+                                </>
+                            </div>
+
+
+                            {/* Upvotes and Downvotes */}
+                            <div className="rl pt pb">
+                                <div className="skeleton-loader" style={{ display: 'flex' }}>
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                    {' '}
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Tweet content */}
-                        <div className="tweet-content pt">
-                            <Skeleton width={'100%'} height={100} />
-                        </div>
+                        {/* Icons */}
+                        <div className="icons">
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
 
-                        {/* Date and location */}
-                        <div className="date pt pb">
-                            <>
-                                <Skeleton width={100} />
-                                <Skeleton width={100} />
-                            </>
-                        </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
 
 
-                        {/* Upvotes and Downvotes */}
-                        <div className="rl pt pb">
-                            <div className="skeleton-loader" style={{ display: 'flex' }}>
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
-                                {' '}
-                                <div>
-                                    <b>
-                                        <Skeleton width={50} />
-                                    </b>{' '}
-                                </div>
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
+                            </div>
+
+                            <div className="ico">
+                                <Skeleton width={30} height={30} />
                             </div>
                         </div>
                     </div>
+                    <div className="tweet">
+                        <div className="tweet-container pt pb pr pl">
+                            {/* User */}
+                            <div className="user pr">
+                                <div className="userl" >
+                                    <div className="profile">
+                                        <Skeleton width={50} height={50} />
+                                    </div>
+                                    <div className="username">
+                                        <div className="name">
+                                            <Skeleton width={100} />
+                                        </div>
 
-                    {/* Icons */}
-                    <div className="icons">
-                        <div className="ico">
-                            <>
+                                        <div className="handle">
+                                            <Skeleton width={80} />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="userr">
+                                    <Skeleton width={100} height={40} />
+                                </div>
+                            </div>
+
+                            {/* Tweet content */}
+                            <div className="tweet-content pt">
+                                <Skeleton width={'100%'} height={100} />
+                            </div>
+
+                            {/* Date and location */}
+                            <div className="date pt pb">
+                                <>
+                                    <Skeleton width={100} />
+                                    <Skeleton width={100} />
+                                </>
+                            </div>
+
+
+                            {/* Upvotes and Downvotes */}
+                            <div className="rl pt pb">
+                                <div className="skeleton-loader" style={{ display: 'flex' }}>
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                    {' '}
+                                    <div>
+                                        <b>
+                                            <Skeleton width={50} />
+                                        </b>{' '}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Icons */}
+                        <div className="icons">
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+
+
+                            <div className="ico">
+                                <>
+                                    <Skeleton width={30} height={30} />
+                                </>
+                            </div>
+                            <div className="ico">
                                 <Skeleton width={30} height={30} />
-                            </>
-                        </div>
+                            </div>
 
-                        <div className="ico">
-                            <>
+                            <div className="ico">
                                 <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-
-
-                        <div className="ico">
-                            <>
-                                <Skeleton width={30} height={30} />
-                            </>
-                        </div>
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
-                        </div>
-
-                        <div className="ico">
-                            <Skeleton width={30} height={30} />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </SkeletonTheme>
             </>) : (
                 <>
                     {tags.map(tag => (
@@ -586,9 +588,9 @@ function Home(props) {
                                                 <Skeleton width={50} height={50} />
                                             ) : (
                                                 <img
-                                                    src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://api.thintry.com/img/demopic.png'}
+                                                    src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg'}
                                                     onError={(event) => {
-                                                        event.target.src = 'https://api.thintry.com/img/demopic.png';
+                                                        event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
                                                         event.target.onError = null;
                                                     }}
                                                 />

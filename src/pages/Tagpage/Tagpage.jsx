@@ -333,9 +333,9 @@ function Tagpage(props) {
                             <div className="userl" onClick={() => { navigate('/user/' + tag.user.username) }}>
                                 <div className="profile">
                                     <img
-                                        src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://api.thintry.com/img/demopic.png'}
+                                        src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg'}
                                         onError={(event) => {
-                                            event.target.src = 'https://api.thintry.com/img/demopic.png';
+                                            event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
                                             event.target.onError = null;
                                         }}
                                     />
@@ -501,9 +501,9 @@ function Tagpage(props) {
                                     <div className="userl" onClick={() => { navigate('/user/' + reply.user.username) }}>
                                         <div className="profile">
                                             <img
-                                                src={reply.user && reply.user.profile ? (reply.user.profile.startsWith('/') ? 'https://api.thintry.com' + reply.user.profile : reply.user.profile) : 'https://api.thintry.com/img/demopic.png'}
+                                                src={reply.user && reply.user.profile ? (reply.user.profile.startsWith('/') ? 'https://api.thintry.com' + reply.user.profile : reply.user.profile) : 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg'}
                                                 onError={(event) => {
-                                                    event.target.src = 'https://api.thintry.com/img/demopic.png';
+                                                    event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
                                                     event.target.onError = null;
                                                 }}
                                             />
