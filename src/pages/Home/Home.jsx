@@ -747,7 +747,7 @@ function Home(props) {
                                                 color="#fff"
                                                 className="img"
                                             />
-                                            <div className="number">{formatNumber(tag.replies ? tag.replies.length : '')}</div>
+                                            <div className="number">{formatNumber(tag.replies ? tag.replies.length : '0')}</div>
                                         </>
                                     )}
                                 </div>
