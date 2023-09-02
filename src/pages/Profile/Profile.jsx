@@ -4,6 +4,8 @@ import Axios from 'axios';
 import './Profile.css'
 import About from '../../components/About/About';
 import Tag from '../../components/Tag/Tag';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function Profile(props) {
   const navigate = useNavigate();
@@ -139,10 +141,23 @@ function Profile(props) {
         <div className="profile-card">
           <div className="dp">
             <div className="dp-ring">
-              {userData.profile ? (
-                <img src={userData.profile.startsWith('/') ? 'https://thintry.com' + userData.profile : userData.profile} alt={userData.firstname + ' ' + userData.lastname} onError={(event) => { event.target.src = 'https://api.thintry.com/img/demopic.png'; event.target.onError = null; }} />
+              {!userData.profile ? (
+                // Skeleton loader for the user profile image
+                <Skeleton width={100} height={100} />
               ) : (
-                <img src="https://api.thintry.com/img/demopic.png" alt="Default Profile" />
+                // Actual content when not loading
+                userData.profile && userData.profile ? (
+                  <img
+                    src={userData.profile.startsWith('/') ? 'https://thintry.com' + userData.profile : userData.profile}
+                    alt={userData.firstname + ' ' + userData.lastname}
+                    onError={(event) => {
+                      event.target.src = 'https://api.thintry.com/img/demopic.png';
+                      event.target.onError = null;
+                    }}
+                  />
+                ) : (
+                  <img src="https://api.thintry.com/img/demopic.png" alt="Default Profile" />
+                )
               )}
             </div>
             <div className="name-tag">
@@ -152,7 +167,7 @@ function Profile(props) {
                     {userData.firstname} {userData.lastname}
                   </>
                 ) : (
-                  <span>Loading...</span>
+                  <Skeleton width={100} />
                 )}
                 {userData.official ? (
                   <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
@@ -165,7 +180,7 @@ function Profile(props) {
                 )}
               </div>
               <div className="username">
-                {userData.username ? `@${userData.username}` : 'Loading...'}
+                {userData.username ? `@${userData.username}` : <Skeleton width={100} />}
               </div>
             </div>
           </div>
@@ -177,7 +192,7 @@ function Profile(props) {
                     <span>{userData.followers.length}</span> Followers
                   </>
                 ) : (
-                  '0'
+                  <Skeleton width={100} />
                 )}
               </button>
             </Link>
@@ -188,7 +203,7 @@ function Profile(props) {
                     <span>{userData.followings.length}</span> Following
                   </>
                 ) : (
-                  '0'
+                  <Skeleton width={100} />
                 )}
               </button>
             </Link>

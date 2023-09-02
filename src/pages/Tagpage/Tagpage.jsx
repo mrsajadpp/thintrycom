@@ -166,7 +166,9 @@ function Tagpage(props) {
 
     const handleUpvote = async (tagId) => {
         try {
-            if (userData.status) {
+            if (!userData.status) {
+                navigate('/auth/login')
+            } else {
                 const response = await Axios.post(
                     'https://api.thintry.com/tag/upvote',
                     { tagId, uid: userData._id },
@@ -180,8 +182,6 @@ function Tagpage(props) {
                 if (response.data.status) {
                     setUpTag(Math.floor(Math.random() * (1 - 9)) + 1)
                 }
-            } else {
-                navigate('/auth/login')
             }
         } catch (error) {
             console.error('Upvote failed', error);
@@ -190,7 +190,9 @@ function Tagpage(props) {
 
     const handleDownvote = async (tagId) => {
         try {
-            if (userData.status) {
+            if (!userData.status) {
+                navigate('/auth/login')
+            } else {
                 const response = await Axios.post(
                     'https://api.thintry.com/tag/downvote',
                     { tagId, uid: userData._id },
@@ -204,8 +206,6 @@ function Tagpage(props) {
                 if (response.data.status) {
                     setUpTag(Math.floor(Math.random() * (1 - 9)) + 1)
                 }
-            } else {
-                navigate('/auth/login')
             }
         } catch (error) {
             console.error('Downvote failed', error);
