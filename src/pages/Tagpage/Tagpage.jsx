@@ -99,7 +99,8 @@ function Tagpage(props) {
                         }
                     });
                     if (res.data.status) {
-                        setReplies(res.data.replies)
+                        setReplies(res.data.replies);
+                        console.log(replies)
                     }
                 }
             } catch (error) {
@@ -196,6 +197,55 @@ function Tagpage(props) {
                 const response = await Axios.post(
                     'https://api.thintry.com/tag/downvote',
                     { tagId, uid: userData._id },
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': true,
+                        },
+                    }
+                );
+
+                if (response.data.status) {
+                    setUpTag(Math.floor(Math.random() * (1 - 9)) + 1)
+                }
+            }
+        } catch (error) {
+            console.error('Downvote failed', error);
+        }
+    };
+
+
+    const handleReplyUpvote = async (replyId) => {
+        try {
+            if (!userData.status) {
+                navigate('/auth/login')
+            } else {
+                const response = await Axios.post(
+                    'https://api.thintry.com/tag/reply/upvote',
+                    { replyId, uid: userData._id },
+                    {
+                        headers: {
+                            'Access-Control-Allow-Origin': true,
+                        },
+                    }
+                );
+
+                if (response.data.status) {
+                    setUpTag(Math.floor(Math.random() * (1 - 9)) + 1)
+                }
+            }
+        } catch (error) {
+            console.error('Upvote failed', error);
+        }
+    };
+
+    const handleReplyDownvote = async (replyId) => {
+        try {
+            if (!userData.status) {
+                navigate('/auth/login')
+            } else {
+                const response = await Axios.post(
+                    'https://api.thintry.com/tag/reply/downvote',
+                    { replyId, uid: userData._id },
                     {
                         headers: {
                             'Access-Control-Allow-Origin': true,
@@ -327,7 +377,7 @@ function Tagpage(props) {
 
                         {/* Tweet content */}
                         <div className="tweet-content pt">
-                            {tag.audio ? (<Audioplayer url={tag.audio.src} />) : (<Link id='link-style' to={`/tag/${tag._id}`} dangerouslySetInnerHTML={{ __html: parseContent(tag.content) }}></Link>)}
+                            {tag.audio ? (<Audioplayer url={tag.audio.src} />) : (<a id='link-style' dangerouslySetInnerHTML={{ __html: parseContent(tag.content) }}></a>)}
                         </div>
 
                         {/* Date and location */}
@@ -427,6 +477,176 @@ function Tagpage(props) {
                         </div>
                     </div>
                 </div>
+                {showAlert && (
+                    <Alert
+                        message={alertData.message}
+                        api={alertData.api}
+                        leftButtonText={alertData.leftButtonText}
+                        rightButtonText={alertData.rightButtonText}
+                        tagId={alertData.tagId}
+                        showAlert={showAlert}
+                        hideAlert={() => setShowAlert(false)}
+                        onAction={handleAlertAction}
+                    />
+                )}
+            </div>
+            {/* replies */}
+            <div id='page-replies'>
+                {replies ? (
+                    replies.map((reply) => (<>
+                        <div id={reply._id} key={reply._id} className="tweet">
+                            <div className="tweet-container pt pb pr pl">
+                                {/* User */}
+                                <div className="user pr">
+                                    <div className="userl" onClick={() => { navigate('/user/' + reply.user.username) }}>
+                                        <div className="profile">
+                                            <img
+                                                src={reply.user && reply.user.profile ? (reply.user.profile.startsWith('/') ? 'https://api.thintry.com' + reply.user.profile : reply.user.profile) : 'https://api.thintry.com/img/demopic.png'}
+                                                onError={(event) => {
+                                                    event.target.src = 'https://api.thintry.com/img/demopic.png';
+                                                    event.target.onError = null;
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="username">
+                                            <div className="name">
+                                                {reply.user && reply.user.firstname && reply.user.lastname ? (
+                                                    <>
+                                                        {reply.user.firstname} {reply.user.lastname}
+                                                        {reply.user.official ? (
+                                                            <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
+                                                        ) : (
+                                                            reply.user.verified ? (
+                                                                <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                                                            ) : (
+                                                                <p></p>
+                                                            )
+                                                        )}
+                                                    </>
+                                                ) : 'Unknown'}
+                                            </div>
+
+                                            <div className="handle">
+                                                {reply.user && reply.user.username ? `@${reply.user.username}` : '@unknown'}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div className="userr">
+                                        <div className="follow">
+                                            <button className="bttwo post-menu" onClick={() => {
+                                                composeEmail(reply);
+                                            }}>
+                                                <box-icon name='flag-alt' type="solid" color="orange"></box-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Tweet content */}
+                                <div className="tweet-content pt">
+                                    {reply.audio ? (<Audioplayer url={reply.audio.src} />) : (<a id='link-style' dangerouslySetInnerHTML={{ __html: parseContent(reply.content) }}></a>)}
+                                </div>
+
+                                {/* Date and location */}
+                                <div className="date pt pb">{formatTime(reply.timestamp)} • from {' '}
+                                    <Link to={`https://www.google.com/maps/search/${encodeURIComponent(reply.user ? reply.user.created.location.region : 'unknown')}`}
+                                        title="Search on Google Maps">{reply.user ? reply.user.created.location.region : 'Unknown'},{' '}
+                                        {reply.user ? reply.user.created.location.country : 'NA'}</Link>
+                                </div>
+
+                                {/* Upvotes and Downvotes */}
+                                <div className="rl pt pb">
+                                    <div className="retweets">
+                                        <b>
+                                            <span className="up-count" id={`main-up-count-${tag._id}`}>
+                                                {formatNumber(reply.upvote ? reply.upvote.length : '')}
+                                            </span>
+                                        </b>{' '}
+                                        Upvotes
+                                    </div>
+                                    <div className="likes">
+                                        <b>
+                                            <span className="down-count" id={`main-dow-count-${tag._id}`}>
+                                                {formatNumber(reply.downvote ? reply.downvote.length : '')}
+                                            </span>
+                                        </b>{' '}
+                                        Downvotes
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Icons */}
+                            <div className="icons">
+                                <div className="ico">
+                                    <box-icon type='solid' name='message-square-dots' onClick={() => { navigate(`/tag/${reply._id}`) }} color="#fff" className="img" />
+                                    <div className="number">{formatNumber(reply.replies ? reply.replies.length : '')}</div>
+                                </div>
+                                <div className="ico">
+                                    <span
+                                        id={`up-${reply._id}`}
+                                        onClick={() => {
+                                            if (userData && reply && reply.upvote) { // Check if userData, tag, and tag.upvote exist
+                                                handleReplyUpvote(reply._id);
+                                            }
+                                        }}
+                                    >
+                                        <box-icon
+                                            type="solid"
+                                            name="up-arrow"
+                                            color={userData && reply && reply.upvote && reply.upvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
+                                            className="img"
+                                        />
+                                    </span>
+                                    <div className="number">
+                                        <span id={`up-count-${reply._id}`} className="up-count">
+                                            {formatNumber(reply && reply.upvote ? reply.upvote.length : '')}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="ico">
+                                    <span
+                                        id={`dow-${reply._id}`}
+                                        onClick={() => {
+                                            if (userData && reply && reply.downvote) { // Check if userData, tag, and tag.downvote exist
+                                                handleReplyDownvote(reply._id);
+                                            }
+                                        }}
+                                    >
+                                        <box-icon
+                                            type="solid"
+                                            name="down-arrow"
+                                            color={userData && reply && reply.downvote && reply.downvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
+                                            className="img"
+                                        />
+                                    </span>
+                                    <div className="number">
+                                        <span id={`dow-count-${reply._id}`} className="down-count">
+                                            {formatNumber(reply && reply.downvote ? reply.downvote.length : '')}
+                                        </span>
+                                    </div>
+                                </div>
+                                {reply.user && reply.user._id ? (
+                                    userData && userData._id == reply.user._id ? (
+                                        <div className="ico">
+                                            <box-icon type='solid' name='trash' color="red" className="img" onClick={() => {
+                                                displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/reply/delete', 'Yes', 'No', `${reply._id}`);
+                                            }} />
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )
+                                ) : (
+                                    ''
+                                )}
+                                <div className="ico">
+                                    <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)} />
+                                </div>
+                            </div>
+                        </div>
+                    </>))
+                ) : ('')}
                 <div style={{ width: '100%', height: '60px' }}></div>
                 {showAlert && (
                     <Alert

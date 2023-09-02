@@ -17,7 +17,7 @@ import New from './pages/New/New';
 import Tagpage from './pages/Tagpage/Tagpage';
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
