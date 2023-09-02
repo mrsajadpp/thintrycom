@@ -187,8 +187,6 @@ function Profile(props) {
                     )
                   )}
                 </div>
-              </SkeletonTheme>
-              <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
                 <div className="username">
                   {userData.username ? `@${userData.username}` : <Skeleton width={100} />}
                 </div>
