@@ -13,7 +13,7 @@ function Home(props) {
     const [tags, setTags] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
     const [alertData, setAlert] = useState({});
-    const itemsPerPage = 10; // Number of items to display per page
+    const itemsPerPage = 30; // Number of items to display per page
     const [currentPage, setCurrentPage] = useState(1); // Current page number
     const [filteredTags, setFilteredTags] = useState([]); // Tags to display on the current page
     const topRef = useRef(null);

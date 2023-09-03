@@ -16,7 +16,7 @@ function Tag(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [alertData, setAlert] = useState({});
   const [upTag, setUpTag] = useState([]);
-  const itemsPerPage = 10; // Number of items to display per page
+  const itemsPerPage = 20; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const [filteredTags, setFilteredTags] = useState([]); // Tags to display on the current page
   const topRef = useRef(null);
