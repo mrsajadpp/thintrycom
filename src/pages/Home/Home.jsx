@@ -891,7 +891,7 @@ function Home(props) {
                     <div style={{ width: '100%', height: '100px' }}></div>
                     {showAlert && (
                         <Alert
-                            message={alertData.message}
+                            message={alertData.message} 
                             api={alertData.api}
                             leftButtonText={alertData.leftButtonText}
                             rightButtonText={alertData.rightButtonText}
