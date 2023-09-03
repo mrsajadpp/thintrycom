@@ -39,7 +39,7 @@ function Home(props) {
                     setTimeout(() => {
                         setIsLoading(false);
                         fetchAllTags();
-                    }, 900);
+                    }, 200);
                 } else {
                     fetchAllTags();
                 }

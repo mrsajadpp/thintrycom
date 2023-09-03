@@ -71,7 +71,7 @@ function Tag(props) {
           setTags(parsedLocalTag);
           setTimeout(() => {
             setIsLoading(false);
-          }, 1000);
+          }, 200);
         }
         fetchTags(props.userData._id);
       } catch (error) {
