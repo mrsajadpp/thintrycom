@@ -16,6 +16,10 @@ function Tag(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [alertData, setAlert] = useState({});
   const [upTag, setUpTag] = useState([]);
+  const itemsPerPage = 10; // Number of items to display per page
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const [filteredTags, setFilteredTags] = useState([]); // Tags to display on the current page
+
 
   function getUserDataFromCookie() {
     const cookieValue = document.cookie
@@ -69,7 +73,7 @@ function Tag(props) {
           // Parse the stored value as JSON
           const parsedLocalTag = JSON.parse(localTag);
           setTags(parsedLocalTag);
-            setIsLoading(false);
+          setIsLoading(false);
         }
         fetchTags(props.userData._id);
       } catch (error) {
@@ -95,6 +99,13 @@ function Tag(props) {
       console.error('Fetching failed', error);
     }
   }
+
+  useEffect(() => {
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
+    setFilteredTags(tags.slice(startIdx, endIdx));
+  }, [currentPage, tags]); // Ensure it re-renders when currentPage or tags change
+
 
   // ...
 
@@ -574,7 +585,7 @@ function Tag(props) {
         </SkeletonTheme>
       </>) : (
         <>
-          {tags.map(tag => (
+          {filteredTags.map(tag => (
             <div id={tag._id} key={tag._id} className="tweet">
               <div className="tweet-container pt pb pr pl">
                 {/* User */}
@@ -701,7 +712,22 @@ function Tag(props) {
                 </div>
               </div>
             </div>))}
-          <div style={{ width: '100%', height: '60px' }}></div>
+          <div>
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous Page
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage * itemsPerPage >= tags.length}
+            >
+              Next Page
+            </button>
+          </div>
+
           {showAlert && (
             <Alert
               message={alertData.message}
