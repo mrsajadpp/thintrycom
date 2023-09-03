@@ -1,4 +1,4 @@
-import { React, useEffect, useState, Suspense, lazy } from 'react'
+import { React, useEffect, useState, Suspense, lazy, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -19,6 +19,7 @@ function Tag(props) {
   const itemsPerPage = 10; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const [filteredTags, setFilteredTags] = useState([]); // Tags to display on the current page
+  const topRef = useRef(null);
 
 
   function getUserDataFromCookie() {
@@ -239,7 +240,7 @@ function Tag(props) {
   };
 
   return (
-    <div>
+    <div ref={topRef}>
       {isLoading ? (<>
         <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
           <div className="tweet">
@@ -721,7 +722,12 @@ function Tag(props) {
             </button>
             <span>Page {currentPage}</span>
             <button
-              onClick={() => setCurrentPage(currentPage + 1)}
+              onClick={() => {
+                setCurrentPage(currentPage + 1);
+                if (topRef.current) {
+                  topRef.current.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               disabled={currentPage * itemsPerPage >= tags.length}
             >
               Next Page

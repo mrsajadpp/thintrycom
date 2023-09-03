@@ -1,4 +1,4 @@
-import { React, useEffect, useState, Suspense, lazy } from 'react'
+import { React, useEffect, useState, Suspense, lazy, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -16,6 +16,7 @@ function Home(props) {
     const itemsPerPage = 10; // Number of items to display per page
     const [currentPage, setCurrentPage] = useState(1); // Current page number
     const [filteredTags, setFilteredTags] = useState([]); // Tags to display on the current page
+    const topRef = useRef(null);
 
     function getUserDataFromCookie() {
         const cookieValue = document.cookie
@@ -260,7 +261,7 @@ function Home(props) {
     };
 
     return (
-        <div style={{ marginTop: '60px' }} id='page'>
+        <div style={{ marginTop: '60px' }} ref={topRef} id='page'>
             {isLoading ? (<>
                 <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
                     <div className="tweet">
@@ -882,7 +883,12 @@ function Home(props) {
                         </button>
                         <span>Page {currentPage}</span>
                         <button
-                            onClick={() => setCurrentPage(currentPage + 1)}
+                            onClick={() => {
+                                setCurrentPage(currentPage + 1);
+                                if (topRef.current) {
+                                    topRef.current.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
                             disabled={currentPage * itemsPerPage >= tags.length}
                         >
                             Next Page
@@ -891,7 +897,7 @@ function Home(props) {
                     <div style={{ width: '100%', height: '100px' }}></div>
                     {showAlert && (
                         <Alert
-                            message={alertData.message} 
+                            message={alertData.message}
                             api={alertData.api}
                             leftButtonText={alertData.leftButtonText}
                             rightButtonText={alertData.rightButtonText}
