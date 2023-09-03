@@ -29,6 +29,22 @@ function Home(props) {
     }
 
     useEffect(() => {
+        async function getLocal() {
+            try {
+                let localTag = await localStorage.getItem('tags');
+                if (localTag) {
+                    // Parse the stored value as JSON
+                    const parsedLocalTag = JSON.parse(localTag);
+                    setTags(parsedLocalTag);
+                }
+            } catch (error) {
+                console.error('Error retrieving data from localStorage', error);
+            }
+        }
+        getLocal();
+    }, []);
+
+    useEffect(() => {
         async function fetchAllTags() {
             try {
                 const response = await fetch('https://api.thintry.com/fetch/user/tags/all', {
@@ -40,9 +56,9 @@ function Home(props) {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.status) {
+                        // Store tags in localStorage
+                        localStorage.setItem('tags', JSON.stringify(data.tags));
                         setTags(data.tags);
-                    } else {
-                        setTags([]);
                     }
                 } else {
                     console.error('Failed to fetch data');
@@ -56,6 +72,7 @@ function Home(props) {
 
         fetchAllTags();
     }, [props, tags]);
+
 
     useEffect(() => {
         let userData = getUserDataFromCookie();

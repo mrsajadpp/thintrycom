@@ -5,6 +5,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Axios from 'axios';
 import Audioplayer from '../Audioplayer/Audioplayer';
 import Alert from '../Alert/Alert';
+import ws from 'ws'; // Import your WebSocket library
+
 
 function Tag(props) {
   const navigate = useNavigate();
@@ -56,16 +58,37 @@ function Tag(props) {
 
     return parsedContent;
   }
+
+  // ...
+
+  useEffect(() => {
+    async function getLocal() {
+      try {
+        let localTag = await localStorage.getItem('userTags');
+        if (localTag) {
+          // Parse the stored value as JSON
+          const parsedLocalTag = JSON.parse(localTag);
+          setTags(parsedLocalTag);
+        }
+      } catch (error) {
+        console.error('Error retrieving data from localStorage', error);
+      }
+    }
+    getLocal();
+  }, []);
+
   useEffect(() => {
     async function fetchTags(uid) {
       try {
-        let response = await Axios.get('https://api.thintry.com/fetch/user/tags', { params: { uid } }, {
+        const response = await Axios.get('https://api.thintry.com/fetch/user/tags', { params: { uid } }, {
           headers: {
             'Access-Control-Allow-Origin': true,
-          }
+          },
         });
 
         if (response.data.status) {
+          // Store tags in localStorage
+          localStorage.setItem('userTags', JSON.stringify(response.data.tags));
           setTags(response.data.tags);
           setIsLoading(false);
         }
@@ -75,6 +98,8 @@ function Tag(props) {
     }
     fetchTags(props.userData._id);
   }, [props.userData, upTag]);
+
+  // ...
 
   const copyUrl = async (url) => {
     try {
