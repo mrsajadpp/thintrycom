@@ -713,12 +713,12 @@ function Tag(props) {
                 </div>
               </div>
             </div>))}
-          <div>
+          <div className='page-btn'>
             <button
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              Previous Page
+              <box-icon name='chevron-left' ></box-icon>
             </button>
             <span>Page {currentPage}</span>
             <button
@@ -730,7 +730,7 @@ function Tag(props) {
               }}
               disabled={currentPage * itemsPerPage >= tags.length}
             >
-              Next Page
+              <box-icon name='chevron-right'></box-icon>
             </button>
           </div>
           <div style={{ width: '100%', height: '100px' }}></div>
