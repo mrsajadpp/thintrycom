@@ -36,10 +36,8 @@ function Home(props) {
                     // Parse the stored value as JSON
                     const parsedLocalTag = JSON.parse(localTag);
                     setTags(parsedLocalTag);
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        fetchAllTags();
-                    }, 200);
+                    setIsLoading(false);
+                    fetchAllTags();
                 } else {
                     fetchAllTags();
                 }

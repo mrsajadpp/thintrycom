@@ -69,9 +69,7 @@ function Tag(props) {
           // Parse the stored value as JSON
           const parsedLocalTag = JSON.parse(localTag);
           setTags(parsedLocalTag);
-          setTimeout(() => {
             setIsLoading(false);
-          }, 200);
         }
         fetchTags(props.userData._id);
       } catch (error) {
