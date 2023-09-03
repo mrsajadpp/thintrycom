@@ -69,35 +69,32 @@ function Tag(props) {
           // Parse the stored value as JSON
           const parsedLocalTag = JSON.parse(localTag);
           setTags(parsedLocalTag);
+          setIsLoading(false);
         }
+        fetchTags(props.userData._id);
       } catch (error) {
         console.error('Error retrieving data from localStorage', error);
       }
     }
     getLocal();
-  }, []);
+  }, [props.userData]);
 
-  useEffect(() => {
-    async function fetchTags(uid) {
-      try {
-        const response = await Axios.get('https://api.thintry.com/fetch/user/tags', { params: { uid } }, {
-          headers: {
-            'Access-Control-Allow-Origin': true,
-          },
-        });
+  async function fetchTags(uid) {
+    try {
+      const response = await Axios.get('https://api.thintry.com/fetch/user/tags', {
+        params: { uid },
+      });
 
-        if (response.data.status) {
-          // Store tags in localStorage
-          localStorage.setItem('userTags', JSON.stringify(response.data.tags));
-          setTags(response.data.tags);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error('Fetching failed', error);
+      if (response.data.status) {
+        // Store tags in localStorage
+        localStorage.setItem('userTags', JSON.stringify(response.data.tags));
+        setTags(response.data.tags);
+        setIsLoading(false);
       }
+    } catch (error) {
+      console.error('Fetching failed', error);
     }
-    fetchTags(props.userData._id);
-  }, [props.userData, upTag]);
+  }
 
   // ...
 

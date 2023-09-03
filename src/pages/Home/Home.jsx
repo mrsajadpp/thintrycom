@@ -36,6 +36,10 @@ function Home(props) {
                     // Parse the stored value as JSON
                     const parsedLocalTag = JSON.parse(localTag);
                     setTags(parsedLocalTag);
+                    setIsLoading(false);
+                    fetchAllTags();
+                } else {
+                    fetchAllTags();
                 }
             } catch (error) {
                 console.error('Error retrieving data from localStorage', error);
@@ -44,34 +48,27 @@ function Home(props) {
         getLocal();
     }, []);
 
-    useEffect(() => {
-        async function fetchAllTags() {
-            try {
-                const response = await fetch('https://api.thintry.com/fetch/user/tags/all', {
-                    headers: {
-                        'Access-Control-Allow-Origin': true,
-                    },
-                });
+    async function fetchAllTags() {
+        try {
+            const response = await fetch('https://api.thintry.com/fetch/user/tags/all');
 
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.status) {
-                        // Store tags in localStorage
-                        localStorage.setItem('tags', JSON.stringify(data.tags));
-                        setTags(data.tags);
-                    }
-                } else {
-                    console.error('Failed to fetch data');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status) {
+                    // Store tags in localStorage
+                    localStorage.setItem('tags', JSON.stringify(data.tags));
+                    setTags(data.tags);
                 }
-
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Fetching failed', error);
+            } else {
+                console.error('Failed to fetch data');
             }
-        }
 
-        fetchAllTags();
-    }, [props, tags]);
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Fetching failed', error);
+        }
+    }
+
 
 
     useEffect(() => {
