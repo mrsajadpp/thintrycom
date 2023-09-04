@@ -1,10 +1,12 @@
-import { React, useEffect, useState, Suspense, lazy } from 'react'
+import React, { useEffect, useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import './New.css';
 
 function New(props) {
-
+    const [editorHtml, setEditorHtml] = useState('');
     let [userData, setData] = useState({});
 
     const [isPostContainerActive, setPostContainerActive] = useState(false);
@@ -52,12 +54,11 @@ function New(props) {
     useEffect(() => {
         // Check if the user is already logged in using the cookie
         const userData = getUserDataFromCookie();
-        if (!userData) {
-            if (!userData.status) {
-                navigate("/auth/login");
-                return; // No need to continue checking if already logged in
-            }
+        if (!userData || !userData.status) {
+            navigate("/auth/login");
+            return; // No need to continue checking if already logged in
         }
+
     }, [navigate]);
 
     useEffect(() => {
@@ -123,36 +124,35 @@ function New(props) {
         };
     }, []);
 
-    const newPost = () => {
-        let content = document.getElementById('tagcont');
-        if (content.value.length <= 0) {
-            content.classList.replace('noerror-inp', 'error-inp');
-        } else {
-            Axios.get(
-                'https://api.thintry.com/tag/new',
-                { params: { _id: userData._id, content: content.value } },
-                {
-                    headers: {
-                        'Access-Control-Allow-Origin': true,
-                    },
-                }
-            )
-                .then((response) => {
-                    if (response.data) {
-                        if (
-                            response.data.status
-                        ) {
-                            navigate(`/tag/${response.data.tag._id}`);
-                        } else {
-                            content.classList.replace('noerror-inp', 'error-inp');
-                        }
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
+    const handleChange = (html) => {
+        document.querySelector('.quill').style.color = '#fff';
+        setEditorHtml(html);
+    };
+
+    const newPost = async () => {
+        try {
+            const content = await editorHtml;
+            console.log(content);
+
+            if (content.length <= 0) {
+                document.querySelector('.quill').style.color = 'red';
+            } else {
+                const response = await Axios.post('https://api.thintry.com/tag/new', {
+                    _id: userData._id,
+                    content: content,
                 });
+
+                if (response.data && response.data.status) {
+                    navigate(`/tag/${response.data.tag._id}`);
+                } else {
+                    document.querySelector('.quill').style.color = 'red';
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            document.querySelector('.quill').style.color = 'red';
         }
-    }
+    };
 
     return (
         <div>
@@ -171,18 +171,27 @@ function New(props) {
 
                 <div className="tag-area">
                     <div className="text-tag">
-                        <textarea name="content" className='noerror-inp' id="tagcont" cols="30" rows="10" maxLength={300} placeholder='What happening now?'></textarea>
+                        <ReactQuill
+                            value={editorHtml}
+                            onChange={handleChange}
+                            modules={{
+                                toolbar: [
+                                    [{ 'font': [] }],
+                                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                    ['link'],
+                                    ['clean']
+                                ],
+                            }}
+                        />
                     </div>
                     <div className="textcenter">
                         Remember to keep respect!
                     </div>
-                    {/* <div className="submit-btn">
-                        
-                    </div> */}
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default New
+export default New;
