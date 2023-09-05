@@ -8,25 +8,8 @@ import './New.css';
 function New(props) {
     const [editorHtml, setEditorHtml] = useState('');
     let [userData, setData] = useState({});
-
-    const [isPostContainerActive, setPostContainerActive] = useState(false);
-
-    const togglePostContainer = () => {
-        setPostContainerActive(prevState => !prevState);
-    };
-
-    const validateForm = () => {
-        const textareaValue = document.getElementById('content').value;
-        const alphabetRegex = /[a-zA-Z]/g;
-        const alphabetCount = (textareaValue.match(alphabetRegex) || []).length;
-
-        if (alphabetCount < 1) {
-            alert('Content must contain at least 10 alphabets.');
-            return false;
-        }
-
-        return true;
-    };
+    const [text, setInputText] = useState('');
+    const [charCount, setCharCount] = useState(100);
 
     function setCookie(name, value, days) {
         const expires = new Date();
@@ -124,33 +107,41 @@ function New(props) {
         };
     }, []);
 
-    const handleChange = (html) => {
-        document.querySelector('.quill').style.color = '#fff';
-        setEditorHtml(html);
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        const button = document.querySelector('.button');
+
+        if (inputValue.length <= 500) {
+            if (inputValue.length <= 0) {
+                button.classList.remove('active');
+            }
+            setInputText(inputValue);
+            button.classList.add('active');
+        } else {
+            // If it exceeds the limit, truncate the text
+            setInputText(inputValue.substring(0, 500));
+        }
     };
 
-    const newPost = async () => {
+    const handleTweet = async () => {
         try {
-            const content = await editorHtml;
-            console.log(content);
-
-            if (content.length <= 0) {
-                document.querySelector('.quill').style.color = 'red';
+            let inputBox = document.getElementById('content'); // Change the class name here
+            if (inputBox.value.trim().length <= 0) { // Use trim() to remove leading/trailing whitespace
+                inputBox.style.color = 'red';
             } else {
                 const response = await Axios.post('https://api.thintry.com/tag/new', {
                     _id: userData._id,
-                    content: content,
+                    content: inputBox.value, // Use textContent to get the content
                 });
 
                 if (response.data && response.data.status) {
                     navigate(`/tag/${response.data.tag._id}`);
                 } else {
-                    document.querySelector('.quill').style.color = 'red';
+                    inputBox.style.color = 'red';
                 }
             }
         } catch (error) {
-            console.error(error);
-            document.querySelector('.quill').style.color = 'red';
+            console.log(error);
         }
     };
 
@@ -164,33 +155,31 @@ function New(props) {
                         <box-icon type='solid' name='chevron-left' color="#6fbf7e"></box-icon>
                     </button>
                     <div style={{ width: '100%' }}></div>
-                    <button onClick={newPost}>
-                        <box-icon type='solid' name='send' color="#fff"></box-icon>
-                    </button>
                 </div>
-
-                <div className="tag-area">
-                    <div className="text-tag">
-                        <ReactQuill
-                            value={editorHtml}
-                            onChange={handleChange}
-                            modules={{
-                                toolbar: [
-                                    [{ 'font': [] }],
-                                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                                    ['link'],
-                                    ['clean']
-                                ],
-                            }}
-                        />
-                    </div>
-                    <div className="textcenter">
-                        Remember to keep respect!
+                <div className='tag-area'>
+                    <div className="wrapper">
+                        <div className="input-box">
+                            <div className="tweet-area">
+                                <textarea name="content" className='input editable' id="content" onChange={handleInputChange} cols="30" rows="10" placeholder="What's happening?">{text}</textarea>
+                            </div>
+                            <div className="privacy">
+                                <i className="fas fa-globe-asia"></i>
+                                <span>Everyone can reply</span>
+                            </div>
+                        </div>
+                        <div className="bottom">
+                            <ul className="icons">
+                                <li><i className="far fa-file-image"></i></li>
+                            </ul>
+                            <div className="content">
+                                <span className="counter">{charCount}</span>
+                                <button onClick={handleTweet} className='button'><box-icon name='send'></box-icon></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
