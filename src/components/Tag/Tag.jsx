@@ -71,9 +71,9 @@ function Tag(props) {
       try {
         // let localTag = await localStorage.getItem('userTags');
         // if (localTag) {
-          // Parse the stored value as JSON
-          // const parsedLocalTag = JSON.parse(localTag);
-          // setTags(parsedLocalTag);
+        // Parse the stored value as JSON
+        // const parsedLocalTag = JSON.parse(localTag);
+        // setTags(parsedLocalTag);
         // }
         fetchTags(props.userData._id);
       } catch (error) {
@@ -712,26 +712,28 @@ function Tag(props) {
                 </div>
               </div>
             </div>))}
-          <div className='page-btn'>
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <box-icon name='chevron-left' color='#6fbf7e'></box-icon>
-            </button>
-            <span style={{color: '#fff'}}>&nbsp;&nbsp;{currentPage}&nbsp;&nbsp;</span>
-            <button
-              onClick={() => {
-                setCurrentPage(currentPage + 1);
-                if (topRef.current) {
-                  topRef.current.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              disabled={currentPage * itemsPerPage >= tags.length}
-            >
-              <box-icon name='chevron-right' color='#6fbf7e'></box-icon>
-            </button>
-          </div>
+          {isLoading ? ('') : (
+            <div className='page-btn'>
+              <button
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <box-icon name='chevron-left' color='#6fbf7e' ></box-icon>
+              </button>
+              <span style={{ color: '#fff' }}>&nbsp;&nbsp;{currentPage}&nbsp;&nbsp;</span>
+              <button
+                onClick={() => {
+                  setCurrentPage(currentPage + 1);
+                  if (topRef.current) {
+                    topRef.current.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                disabled={currentPage * itemsPerPage >= tags.length}
+              >
+                <box-icon name='chevron-right' color='#6fbf7e'></box-icon>
+              </button>
+            </div>
+          )}
           <div style={{ width: '100%', height: '50px' }}></div>
 
           {showAlert && (
