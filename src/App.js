@@ -15,6 +15,7 @@ import Settings from './pages/Settings/Settings';
 import Editprofile from './pages/Editprofile/Editprofile';
 import New from './pages/New/New';
 import Tagpage from './pages/Tagpage/Tagpage';
+import User from './pages/User/User';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -44,6 +45,7 @@ function App() {
             <Route path="/profile/edit" element={<Editprofile title='Edit Profile' />} />
             <Route path="/tag/new" element={<New title='New Tag' />} />
             <Route path="/tag/:tagId" element={<Tagpage />} />
+            <Route path="/user/:username" element={<User />} />
           </Routes>
           <Footer />
         </Suspense>

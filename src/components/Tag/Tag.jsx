@@ -81,7 +81,7 @@ function Tag(props) {
       }
     }
     getLocal();
-  }, [props.userData]);
+  }, [props.userData, upTag]);
 
   async function fetchTags(uid) {
     try {
@@ -702,11 +702,19 @@ function Tag(props) {
                     </span>
                   </div>
                 </div>
-                <div className="ico" >
-                  <box-icon type='solid' name='trash' color="red" className="img" onClick={() => {
-                    displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/delete', 'Yes', 'No', `${tag._id}`);
-                  }} />
-                </div>
+                {props.userData && props.userData._id && userData && userData._id == props.userData._id && (
+                  <div className="ico">
+                    <box-icon
+                      type='solid'
+                      name='trash'
+                      color="red"
+                      className="img"
+                      onClick={() => {
+                        displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/delete', 'Yes', 'No', `${tag._id}`);
+                      }}
+                    />
+                  </div>
+                )}
                 <div className="ico">
                   <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://web.thintry.com/tag/${tag._id}`)} />
                 </div>
