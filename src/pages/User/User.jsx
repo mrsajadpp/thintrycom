@@ -118,7 +118,7 @@ function User(props) {
       }
     }
     fetchProfileData();
-  }, [userData]);
+  }, [userData, isFollowing]);
 
   useEffect(() => {
     async function fetchPost() {
@@ -178,7 +178,6 @@ function User(props) {
         });
 
         if (response.data.status) {
-          console.log(response.data)
           setIsFollowingBack(response.data.following)
         }
       } catch (error) {
@@ -188,15 +187,37 @@ function User(props) {
     isFollowingBackFn();
   }, [profileData]);
 
-  const unfollow = () => {
+  const unfollow = async () => {
+    try {
+      let response = await Axios.post('https://api.thintry.com/user/unfollow', { follower_id: userData._id, following_id: profileData._id }, {
+        headers: {
+          'Access-Control-Allow-Origin': true,
+        }
+      });
 
+      if (response.data.status) {
+        setIsFollowing(false)
+      }
+    } catch (error) {
+      console.error('Fetching failed', error);
+    }
   }
 
-  const follow = () => {
+  const follow = async (e) => {
+    try {
+      let response = await Axios.post('https://api.thintry.com/user/follow', { follower_id: userData._id, following_id: profileData._id }, {
+        headers: {
+          'Access-Control-Allow-Origin': true,
+        }
+      });
 
+      if (response.data.status) {
+        setIsFollowing(true)
+      }
+    } catch (error) {
+      console.error('Fetching failed', error);
+    }
   }
-
-  console.log('bax'+isFollowingBack);
 
   return (
     <div className="profile">
@@ -277,18 +298,18 @@ function User(props) {
           </div>
           <div className="btns">
             {isFollowing ? (
-              <div class="buttons" id="followBtns">
-                <button id="unFollowButton" onclick={unfollow} class="unbutton"><box-icon name='user-minus'
+              <div className="buttons" id="followBtns">
+                <button id="unFollowButton" onClick={unfollow} className="unbutton"><box-icon name='user-minus'
                   color="#6fbf7e"></box-icon>&nbsp;Unfollow</button>
               </div>
             ) : (
               isFollowingBack ? (
-                <div class="buttons" id="followBtns">
-                  <button id="followButton" onclick={follow}><box-icon name='user-plus'></box-icon>&nbsp;Follow
+                <div className="buttons" id="followBtns">
+                  <button id="followButton" onClick={follow}><box-icon name='user-plus'></box-icon>&nbsp;Follow
                     Back</button>
                 </div>
               ) : (
-                <div class="buttons" onclick={follow} id="followBtns">
+                <div className="buttons" onClick={follow} id="followBtns">
                   <button id="followButton"><box-icon name='user-plus'></box-icon>&nbsp;Follow</button>
                 </div>
               )
