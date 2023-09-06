@@ -321,7 +321,9 @@ function Tagpage(props) {
                 replyData.style.color = '#fff';
                 let response = await Axios.post('http://api.thintry.com/tag/reply/new', { user_id: userData._id, tag_id: tag._id, reply: replyData.value }, {
                     headers: {
+                        "Content-Type": "application/json",
                         'Access-Control-Allow-Origin': true,
+                        "Access-Control-Allow-Methods": 'DELETE, POST, GET, OPTIONS',
                     }
                 });
                 replyData.value = '';
