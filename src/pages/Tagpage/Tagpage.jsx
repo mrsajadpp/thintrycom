@@ -319,7 +319,7 @@ function Tagpage(props) {
             console.log(replyData.value)
             if (replyData.value.length > 0) {
                 replyData.style.color = '#fff';
-                let response = await Axios.get('http://api.thintry.com/tag/reply/new', { params: { user_id: userData._id, tag_id: tag._id, reply: replyData.value } }, {
+                let response = await Axios.post('http://api.thintry.com/tag/reply/new', { params: { user_id: userData._id, tag_id: tag._id, reply: replyData.value } }, {
                     headers: {
                         'Access-Control-Allow-Origin': true,
                     }
