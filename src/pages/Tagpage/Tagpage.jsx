@@ -380,7 +380,7 @@ function Tagpage(props) {
                                                     <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
                                                 ) : (
                                                     tag.user.verified ? (
-                                                        <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                                                        <box-icon type='solid' name='badge-check' color="#fff" ></box-icon>
                                                     ) : (
                                                         <p></p>
                                                     )
@@ -548,7 +548,7 @@ function Tagpage(props) {
                                                             <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
                                                         ) : (
                                                             reply.user.verified ? (
-                                                                <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                                                                <box-icon type='solid' name='badge-check' color="#fff" ></box-icon>
                                                             ) : (
                                                                 <p></p>
                                                             )

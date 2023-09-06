@@ -16,6 +16,8 @@ import Editprofile from './pages/Editprofile/Editprofile';
 import New from './pages/New/New';
 import Tagpage from './pages/Tagpage/Tagpage';
 import User from './pages/User/User';
+import Followers from './pages/Followers/Followers';
+import Followings from './pages/Followings/Followings';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -46,6 +48,8 @@ function App() {
             <Route path="/tag/new" element={<New title='New Tag' />} />
             <Route path="/tag/:tagId" element={<Tagpage />} />
             <Route path="/user/:username" element={<User />} />
+            <Route path="/followers/:username" element={<Followers title='Followers' />} />
+            <Route path="/followings/:username" element={<Followings title='Followings'/>} />
           </Routes>
           <Footer />
         </Suspense>

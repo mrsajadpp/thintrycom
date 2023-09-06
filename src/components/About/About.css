@@ -290,7 +290,7 @@
     /* margin-bottom: 3px; */
     display: flex;
     line-height: 10px;
-    /* width: 100%; */
+    width: 100%;
     align-items: center;
     justify-content: start;
 }

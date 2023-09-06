@@ -260,7 +260,7 @@ function User(props) {
                     <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
                   ) : (
                     profileData.verified ? (
-                      <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                      <box-icon type='solid' name='badge-check' color="#fff" ></box-icon>
                     ) : (
                       <p></p>
                     )
