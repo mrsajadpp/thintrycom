@@ -7,3 +7,36 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+.new-reply-box {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    position: fixed;
+    bottom: 0px;
+    border-bottom: 3px solid #6fbf7e;
+}
+
+.new-reply-box input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.new-reply-box button {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

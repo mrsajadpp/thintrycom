@@ -53,11 +53,8 @@ code {
 }
 
 .page-btn button {
-  width: 100px;
-  height: 40px;
-  background-color: #6fbf7e;
+  background-color: transparent;
   border: none;
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

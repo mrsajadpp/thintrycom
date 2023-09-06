@@ -160,7 +160,7 @@ function New(props) {
                     <div className="wrapper">
                         <div className="input-box">
                             <div className="tweet-area">
-                                <textarea name="content" className='input editable' id="content" onChange={handleInputChange} cols="30" rows="10" placeholder="What's happening?">{text}</textarea>
+                                <textarea name="content" className='input editable' id="content" onChange={handleInputChange} cols="30" rows="10" defaultValue={text} placeholder="What's happening?"></textarea>
                             </div>
                             <div className="privacy">
                                 <i className="fas fa-globe-asia"></i>

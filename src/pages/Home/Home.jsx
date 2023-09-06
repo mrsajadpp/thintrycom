@@ -35,16 +35,15 @@ function Home(props) {
     useEffect(() => {
         async function getLocal() {
             try {
-                let localTag = await localStorage.getItem('tags');
-                if (localTag) {
-                    // Parse the stored value as JSON
-                    const parsedLocalTag = JSON.parse(localTag);
-                    setTags(parsedLocalTag);
-                    setIsLoading(false);
-                    fetchAllTags();
-                } else {
-                    fetchAllTags();
-                }
+                // let localTag = await localStorage.getItem('tags');
+                // if (localTag) {
+                // Parse the stored value as JSON
+                // const parsedLocalTag = JSON.parse(localTag);
+                // setTags(parsedLocalTag);
+                fetchAllTags();
+                // } else {
+                // fetchAllTags();
+                // }
             } catch (error) {
                 console.error('Error retrieving data from localStorage', error);
             }
@@ -60,14 +59,14 @@ function Home(props) {
                 const data = await response.json();
                 if (data.status) {
                     // Store tags in localStorage
-                    localStorage.setItem('tags', JSON.stringify(data.tags));
+                    // localStorage.setItem('tags', JSON.stringify(data.tags));
                     setTags(data.tags);
+                    setIsLoading(false);
                 }
             } else {
                 console.error('Failed to fetch data');
             }
 
-            setIsLoading(false);
         } catch (error) {
             console.error('Fetching failed', error);
         }
@@ -614,263 +613,167 @@ function Home(props) {
                                 <div className="user pr">
                                     <div className="userl" onClick={() => { navigate('/user/' + tag.user.username) }}>
                                         <div className="profile">
-                                            {isLoading ? (
-                                                // Skeleton loader for the profile image
-                                                <Skeleton width={50} height={50} />
-                                            ) : (
-                                                <img
-                                                    src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg'}
-                                                    onError={(event) => {
-                                                        event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
-                                                        event.target.onError = null;
-                                                    }}
-                                                />
-                                            )}
+                                            <img
+                                                src={tag.user && tag.user.profile ? (tag.user.profile.startsWith('/') ? 'https://api.thintry.com' + tag.user.profile : tag.user.profile) : 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg'}
+                                                onError={(event) => {
+                                                    event.target.src = 'https://i.postimg.cc/JhpkJZCd/1cc535901e32f18db87fa5e340a18aff.jpg';
+                                                    event.target.onError = null;
+                                                }}
+                                            />
                                         </div>
                                         <div className="username">
                                             <div className="name">
-                                                {isLoading ? (
-                                                    // Skeleton loader for the name and verification badge
-                                                    <Skeleton width={100} />
-                                                ) : (
+                                                {tag.user && tag.user.firstname && tag.user.lastname ? (
                                                     <>
-                                                        {tag.user && tag.user.firstname && tag.user.lastname ? (
-                                                            <>
-                                                                {tag.user.firstname} {tag.user.lastname}
-                                                                {tag.user.official ? (
-                                                                    <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
-                                                                ) : (
-                                                                    tag.user.verified ? (
-                                                                        <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
-                                                                    ) : (
-                                                                        <p></p>
-                                                                    )
-                                                                )}
-                                                            </>
-                                                        ) : 'Unknown'}
+                                                        {tag.user.firstname} {tag.user.lastname}
+                                                        {tag.user.official ? (
+                                                            <box-icon type='solid' name='badge-check' color="#6fbf7e"></box-icon>
+                                                        ) : (
+                                                            tag.user.verified ? (
+                                                                <box-icon type='solid' name='badge-check' color="#fff"></box-icon>
+                                                            ) : (
+                                                                <p></p>
+                                                            )
+                                                        )}
                                                     </>
-                                                )}
+                                                ) : ''}
                                             </div>
 
                                             <div className="handle">
-                                                {isLoading ? (
-                                                    // Skeleton loader for the handle (username)
-                                                    <Skeleton width={80} />
-                                                ) : (
-                                                    <>{tag.user && tag.user.username ? `@${tag.user.username}` : '@unknown'}</>
-                                                )}
+                                                <>{tag.user && tag.user.username ? `@${tag.user.username}` : '@unknown'}</>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div className="userr">
-                                        {isLoading ? (
-                                            // Skeleton loader for the "Follow" button
-                                            <Skeleton width={100} height={40} />
-                                        ) : (
-                                            <div className="follow">
-                                                <button className="bttwo post-menu" onClick={() => {
-                                                    composeEmail(tag);
-                                                }}>
-                                                    <box-icon name='flag-alt' type="solid" color="orange"></box-icon>
-                                                </button>
-                                            </div>
-                                        )}
+                                        <div className="follow">
+                                            <button className="bttwo post-menu" onClick={() => {
+                                                composeEmail(tag);
+                                            }}>
+                                                <box-icon name='flag-alt' type="solid" color="orange"></box-icon>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Tweet content */}
                                 <div className="tweet-content pt">
-                                    {isLoading ? (
-                                        // Skeleton loader for the tweet content
-                                        <Skeleton width={'100%'} height={100} />
+                                    {tag.audio ? (
+                                        <Audioplayer url={tag.audio.src} />
                                     ) : (
-                                        <>
-                                            {tag.audio ? (
-                                                <Audioplayer url={tag.audio.src} />
-                                            ) : (
-                                                <Link id='link-style' to={`/tag/${tag._id}`} dangerouslySetInnerHTML={{ __html: parseContent(tag.content) }}></Link>
-                                            )}
-                                        </>
+                                        <Link id='link-style' to={`/tag/${tag._id}`} dangerouslySetInnerHTML={{ __html: parseContent(tag.content) }}></Link>
                                     )}
                                 </div>
 
                                 {/* Date and location */}
                                 <div className="date pt pb">
-                                    {isLoading ? (
-                                        // Skeleton loader for the date and location
-                                        <>
-                                            <Skeleton width={100} />
-                                            <Skeleton width={100} />
-                                        </>
-                                    ) : (
-                                        <>
-                                            {formatTime(tag.timestamp)} • from {' '}
-                                            <Link to={`https://www.google.com/maps/search/${encodeURIComponent(tag.user ? tag.user.created.location.region : 'unknown')}`}
-                                                title="Search on Google Maps">{tag.user ? tag.user.created.location.region : 'Unknown'},{' '}
-                                                {tag.user ? tag.user.created.location.country : 'NA'}</Link>
-                                        </>
-                                    )}
+                                    {formatTime(tag.timestamp)} • from {' '}
+                                    <Link to={`https://www.google.com/maps/search/${encodeURIComponent(tag.user ? tag.user.created.location.region : 'unknown')}`}
+                                        title="Search on Google Maps">{tag.user ? tag.user.created.location.region : 'Unknown'},{' '}
+                                        {tag.user ? tag.user.created.location.country : 'NA'}</Link>
                                 </div>
 
 
                                 {/* Upvotes and Downvotes */}
                                 <div className="rl pt pb">
-                                    {isLoading ? (
-                                        // Skeleton loader for the "Upvotes" and "Downvotes" count
-                                        <div className="skeleton-loader" style={{ display: 'flex' }}>
-                                            <div>
-                                                <b>
-                                                    <Skeleton width={50} />
-                                                </b>{' '}
-                                            </div>
-                                            {' '}
-                                            <div>
-                                                <b>
-                                                    <Skeleton width={50} />
-                                                </b>{' '}
-                                            </div>
+                                    <div className="content">
+                                        <div className="retweets">
+                                            <b>
+                                                <span className="up-count" id={`main-up-count-${tag._id}`}>
+                                                    {formatNumber(tag.upvote ? tag.upvote.length : '')}
+                                                </span>
+                                            </b>{' '}
+                                            Upvotes
                                         </div>
-                                    ) : (
-                                        <div className="content">
-                                            <div className="retweets">
-                                                <b>
-                                                    <span className="up-count" id={`main-up-count-${tag._id}`}>
-                                                        {formatNumber(tag.upvote ? tag.upvote.length : '')}
-                                                    </span>
-                                                </b>{' '}
-                                                Upvotes
-                                            </div>
-                                            <div className="likes">
-                                                <b>
-                                                    <span className="down-count" id={`main-dow-count-${tag._id}`}>
-                                                        {formatNumber(tag.downvote ? tag.downvote.length : '')}
-                                                    </span>
-                                                </b>{' '}
-                                                Downvotes
-                                            </div>
+                                        <div className="likes">
+                                            <b>
+                                                <span className="down-count" id={`main-dow-count-${tag._id}`}>
+                                                    {formatNumber(tag.downvote ? tag.downvote.length : '')}
+                                                </span>
+                                            </b>{' '}
+                                            Downvotes
                                         </div>
-                                    )}
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Icons */}
                             <div className="icons">
                                 <div className="ico">
-                                    {isLoading ? (
-                                        // Skeleton loader for the "message-square-dots" icon and replies count
-                                        <>
-                                            <Skeleton width={30} height={30} />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <box-icon
-                                                type='solid'
-                                                name='message-square-dots'
-                                                onClick={() => { navigate(`/tag/${tag._id}`) }}
-                                                color="#fff"
-                                                className="img"
-                                            />
-                                            <div className="number">{formatNumber(tag.replies ? tag.replies.length : '0')}</div>
-                                        </>
-                                    )}
+                                    <box-icon
+                                        type='solid'
+                                        name='message-square-dots'
+                                        onClick={() => { navigate(`/tag/${tag._id}`) }}
+                                        color="#fff"
+                                        className="img"
+                                    />
+                                    <div className="number">{formatNumber(tag.replies ? tag.replies.length : '0')}</div>
                                 </div>
 
                                 <div className="ico">
-                                    {isLoading ? (
-                                        // Skeleton loader for the upvote icon and count
-                                        <>
-                                            <Skeleton width={30} height={30} />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span
-                                                id={`up-${tag._id}`}
-                                                onClick={() => {
-                                                    handleUpvote(tag._id);
-                                                }}
-                                            >
-                                                <box-icon
-                                                    type="solid"
-                                                    name="up-arrow"
-                                                    color={userData && tag.upvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
-                                                    className="img"
-                                                />
-                                            </span>
-                                            <div className="number">
-                                                <span id={`up-count-${tag._id}`} className="up-count">
-                                                    {formatNumber(tag.upvote ? tag.upvote.length : '')}
-                                                </span>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-
-
-                                <div className="ico">
-                                    {isLoading ? (
-                                        // Skeleton loader for the downvote icon and count
-                                        <>
-                                            <Skeleton width={30} height={30} />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span
-                                                id={`dow-${tag._id}`}
-                                                onClick={() => {
-                                                    handleDownvote(tag._id);
-                                                }}
-                                            >
-                                                <box-icon
-                                                    type="solid"
-                                                    name="down-arrow"
-                                                    color={userData && tag.downvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
-                                                    className="img"
-                                                />
-                                            </span>
-                                            <div className="number">
-                                                <span id={`dow-count-${tag._id}`} className="down-count">
-                                                    {formatNumber(tag.downvote ? tag.downvote.length : '')}
-                                                </span>
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-
-                                {isLoading ? (
-                                    // Skeleton loader for the "trash" icon
-                                    <div className="ico">
-                                        <Skeleton width={30} height={30} />
+                                    <span
+                                        id={`up-${tag._id}`}
+                                        onClick={() => {
+                                            handleUpvote(tag._id);
+                                        }}
+                                    >
+                                        <box-icon
+                                            type="solid"
+                                            name="up-arrow"
+                                            color={userData && tag.upvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
+                                            className="img"
+                                        />
+                                    </span>
+                                    <div className="number">
+                                        <span id={`up-count-${tag._id}`} className="up-count">
+                                            {formatNumber(tag.upvote ? tag.upvote.length : '')}
+                                        </span>
                                     </div>
-                                ) : (
-                                    // Actual content when not loading
-                                    tag.user && tag.user._id && userData && userData._id == tag.user._id && (
-                                        <div className="ico">
-                                            <box-icon
-                                                type='solid'
-                                                name='trash'
-                                                color="red"
-                                                className="img"
-                                                onClick={() => {
-                                                    displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/delete', 'Yes', 'No', `${tag._id}`);
-                                                }}
-                                            />
-                                        </div>
-                                    )
+                                </div>
+
+
+                                <div className="ico">
+                                    <span
+                                        id={`dow-${tag._id}`}
+                                        onClick={() => {
+                                            handleDownvote(tag._id);
+                                        }}
+                                    >
+                                        <box-icon
+                                            type="solid"
+                                            name="down-arrow"
+                                            color={userData && tag.downvote.includes(userData._id) ? "#6fbf7e" : "#fff"}
+                                            className="img"
+                                        />
+                                    </span>
+                                    <div className="number">
+                                        <span id={`dow-count-${tag._id}`} className="down-count">
+                                            {formatNumber(tag.downvote ? tag.downvote.length : '')}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {tag.user && tag.user._id && userData && userData._id == tag.user._id && (
+                                    <div className="ico">
+                                        <box-icon
+                                            type='solid'
+                                            name='trash'
+                                            color="red"
+                                            className="img"
+                                            onClick={() => {
+                                                displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/delete', 'Yes', 'No', `${tag._id}`);
+                                            }}
+                                        />
+                                    </div>
                                 )}
 
                                 <div className="ico">
-                                    {isLoading ? (
-                                        <Skeleton width={30} height={30} />
-                                    ) : (
-                                        // Actual content when not loading
-                                        <box-icon
-                                            name='link'
-                                            color="#fff"
-                                            className="img"
-                                            onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)}
-                                        />
-                                    )}
+                                    <box-icon
+                                        name='link'
+                                        color="#fff"
+                                        className="img"
+                                        onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)}
+                                    />
                                 </div>
                             </div>
                         </div>))}
@@ -879,9 +782,9 @@ function Home(props) {
                             onClick={() => setCurrentPage(currentPage - 1)}
                             disabled={currentPage === 1}
                         >
-                            <box-icon name='chevron-left' ></box-icon>
+                            <box-icon name='chevron-left' color='#6fbf7e' ></box-icon>
                         </button>
-                        <span>Page {currentPage}</span>
+                        <span style={{color: '#fff'}}>&nbsp;&nbsp;{currentPage}&nbsp;&nbsp;</span>
                         <button
                             onClick={() => {
                                 setCurrentPage(currentPage + 1);
@@ -891,10 +794,10 @@ function Home(props) {
                             }}
                             disabled={currentPage * itemsPerPage >= tags.length}
                         >
-                            <box-icon name='chevron-right'></box-icon>
+                            <box-icon name='chevron-right' color='#6fbf7e'></box-icon>
                         </button>
                     </div>
-                    <div style={{ width: '100%', height: '100px' }}></div>
+                    <div style={{ width: '100%', height: '50px' }}></div>
                     {showAlert && (
                         <Alert
                             message={alertData.message}

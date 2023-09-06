@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import Audioplayer from '../../components/Audioplayer/Audioplayer';
 import Alert from '../../components/Alert/Alert';
+import './Tagpage.css';
 
 function Tagpage(props) {
     const { tagId } = useParams();
@@ -309,6 +310,29 @@ function Tagpage(props) {
         });
         setShowAlert(true);
     };
+
+    const handleReply = async (e) => {
+        // http://localhost:3002/tag/reply/new
+        e.preventDefault();
+        try {
+            let replyData = await document.getElementById('replydata');
+            console.log(replyData.value)
+            if (replyData.value.length > 0) {
+                replyData.style.color = '#fff';
+                let response = await Axios.get('http://api.thintry.com/tag/reply/new', { params: { user_id: userData._id, tag_id: tag._id, reply: replyData.value } }, {
+                    headers: {
+                        'Access-Control-Allow-Origin': true,
+                    }
+                });
+                replyData.value = '';
+            } else {
+                replyData.style.color = 'red';
+            }
+            setUpTag(Math.floor(Math.random() * (1 - 9)) + 1)
+        } catch (error) {
+            console.error('Fetching failed', error);
+        }
+    }
 
     return (
         <div>
@@ -661,6 +685,14 @@ function Tagpage(props) {
                     />
                 )}
             </div>
+            <form className="new-reply-box" onSubmit={handleReply}>
+                <input type="text" hidden name='tag_id' defaultValue={tag._id} />
+                <input type="text" hidden name='user_id' defaultValue={userData ? userData._id : ''} />
+                <input type="text" placeholder='Write reply?' name='reply' id='replydata' />
+                <button>
+                    <box-icon type='solid' name='send' color='#6fbf7e'></box-icon>
+                </button>
+            </form>
         </div>
     )
 }

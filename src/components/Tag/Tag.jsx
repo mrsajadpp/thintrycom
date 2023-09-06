@@ -69,13 +69,12 @@ function Tag(props) {
   useEffect(() => {
     async function getLocal() {
       try {
-        let localTag = await localStorage.getItem('userTags');
-        if (localTag) {
+        // let localTag = await localStorage.getItem('userTags');
+        // if (localTag) {
           // Parse the stored value as JSON
-          const parsedLocalTag = JSON.parse(localTag);
-          setTags(parsedLocalTag);
-          setIsLoading(false);
-        }
+          // const parsedLocalTag = JSON.parse(localTag);
+          // setTags(parsedLocalTag);
+        // }
         fetchTags(props.userData._id);
       } catch (error) {
         console.error('Error retrieving data from localStorage', error);
@@ -92,7 +91,7 @@ function Tag(props) {
 
       if (response.data.status) {
         // Store tags in localStorage
-        localStorage.setItem('userTags', JSON.stringify(response.data.tags));
+        // localStorage.setItem('userTags', JSON.stringify(response.data.tags));
         setTags(response.data.tags);
         setIsLoading(false);
       }
@@ -718,9 +717,9 @@ function Tag(props) {
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
             >
-              <box-icon name='chevron-left' ></box-icon>
+              <box-icon name='chevron-left' color='#6fbf7e'></box-icon>
             </button>
-            <span>Page {currentPage}</span>
+            <span style={{color: '#fff'}}>&nbsp;&nbsp;{currentPage}&nbsp;&nbsp;</span>
             <button
               onClick={() => {
                 setCurrentPage(currentPage + 1);
@@ -730,10 +729,10 @@ function Tag(props) {
               }}
               disabled={currentPage * itemsPerPage >= tags.length}
             >
-              <box-icon name='chevron-right'></box-icon>
+              <box-icon name='chevron-right' color='#6fbf7e'></box-icon>
             </button>
           </div>
-          <div style={{ width: '100%', height: '100px' }}></div>
+          <div style={{ width: '100%', height: '50px' }}></div>
 
           {showAlert && (
             <Alert
