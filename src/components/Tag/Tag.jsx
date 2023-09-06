@@ -708,7 +708,7 @@ function Tag(props) {
                   }} />
                 </div>
                 <div className="ico">
-                  <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)} />
+                  <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://web.thintry.com/tag/${tag._id}`)} />
                 </div>
               </div>
             </div>))}

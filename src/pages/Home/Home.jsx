@@ -772,7 +772,7 @@ function Home(props) {
                                         name='link'
                                         color="#fff"
                                         className="img"
-                                        onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)}
+                                        onClick={() => copyUrl(`https://web.thintry.com/tag/${tag._id}`)}
                                     />
                                 </div>
                             </div>

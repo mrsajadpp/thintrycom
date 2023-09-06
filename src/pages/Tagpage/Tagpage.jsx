@@ -284,14 +284,19 @@ function Tagpage(props) {
     const handleAlertAction = () => {
         async function delTag() {
             try {
-                let response = await Axios.get('https://api.thintry.com/tag/delete', { params: { uid: userData._id, tagId: alertData.tagId } }, {
+                let response = await Axios.get(alertData.api, { params: { uid: userData._id, tagId: alertData.tagId, main_tag_id: tag._id } }, {
                     headers: {
                         'Access-Control-Allow-Origin': true,
                     }
                 });
 
                 if (response.data.status) {
-                    navigate(-1);
+                    if (alertData.api !== 'https://api.thintry.com/tag/reply/delete') {
+                        navigate(-1);
+                    } else {
+                        setShowAlert(false);
+                        setUpTag(Math.floor(Math.random() * (1 - 9)) + 1);
+                    }
                 }
             } catch (error) {
                 console.error('Fetching failed', error);
@@ -499,7 +504,7 @@ function Tagpage(props) {
                             ''
                         )}
                         <div className="ico">
-                            <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)} />
+                            <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://web.thintry.com/tag/${tag._id}`)} />
                         </div>
                     </div>
                 </div>
@@ -560,11 +565,23 @@ function Tagpage(props) {
                                     </div>
                                     <div className="userr">
                                         <div className="follow">
-                                            <button className="bttwo post-menu" onClick={() => {
-                                                composeEmail(reply);
-                                            }}>
-                                                <box-icon name='flag-alt' type="solid" color="orange"></box-icon>
-                                            </button>
+                                            {reply.user && reply.user._id ? (
+                                                userData && userData._id == reply.user._id ? (
+                                                    <button className="bttwo post-menu">
+                                                        <box-icon type='solid' name='trash' color="red" className="img" onClick={() => {
+                                                            displayAlert('Do you really want to delete this reply?', 'https://api.thintry.com/tag/reply/delete', 'Yes', 'No', `${reply._id}`);
+                                                        }} />
+                                                    </button>
+                                                ) : (
+                                                    <button className="bttwo post-menu" onClick={() => {
+                                                        composeEmail(reply);
+                                                    }}>
+                                                        <box-icon name='flag-alt' type="solid" color="orange"></box-icon>
+                                                    </button>
+                                                )
+                                            ) : (
+                                                ''
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -582,7 +599,7 @@ function Tagpage(props) {
                                 </div>
 
                                 {/* Upvotes and Downvotes */}
-                                <div className="rl pt pb">
+                                {/* <div className="rl pt pb">
                                     <div className="retweets">
                                         <b>
                                             <span className="up-count" id={`main-up-count-${tag._id}`}>
@@ -599,11 +616,11 @@ function Tagpage(props) {
                                         </b>{' '}
                                         Downvotes
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Icons */}
-                            <div className="icons">
+                            {/* <div className="icons">
                                 <div className="ico">
                                     <box-icon type='solid' name='message-square-dots' onClick={() => { navigate(`/tag/${reply._id}`) }} color="#fff" className="img" />
                                     <div className="number">{formatNumber(reply.replies ? reply.replies.length : '')}</div>
@@ -657,7 +674,7 @@ function Tagpage(props) {
                                     userData && userData._id == reply.user._id ? (
                                         <div className="ico">
                                             <box-icon type='solid' name='trash' color="red" className="img" onClick={() => {
-                                                displayAlert('Do you really want to delete this tag?', 'https://api.thintry.com/tag/reply/delete', 'Yes', 'No', `${reply._id}`);
+                                                displayAlert('Do you really want to delete this reply?', 'https://api.thintry.com/tag/reply/delete', 'Yes', 'No', `${reply._id}`);
                                             }} />
                                         </div>
                                     ) : (
@@ -667,9 +684,9 @@ function Tagpage(props) {
                                     ''
                                 )}
                                 <div className="ico">
-                                    <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://api.thintry.com/tag/${tag._id}`)} />
+                                    <box-icon name='link' color="#fff" className="img" onClick={() => copyUrl(`https://web.thintry.com/tag/${tag._id}`)} />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </>))
                 ) : ('')}
