@@ -42,7 +42,7 @@ function Profile(props) {
       navigate("/auth/login");
       return; // No need to continue checking if already logged in
     }
-  }, [navigate]);
+  }, [props]);
 
   useEffect(() => {
     const defaultTitle = "Thintry - Microblog";
@@ -107,31 +107,6 @@ function Profile(props) {
     }
     fetchPost();
   }, []);
-
-  const copyUrl = async (url) => {
-    try {
-      await navigator.clipboard.writeText(url);
-    } catch (error) {
-      // Fallback for browsers that don't support Clipboard API
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = url;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempTextArea);
-    }
-  };
-
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp); // Convert to milliseconds
-    // Now you can use the toDateString method
-    const formattedTime = date.toDateString();
-    return formattedTime;
-  };
-
-  const isPageActive = (path) => {
-    return location.pathname === path;
-  };
 
   function pageType() {
     const queryString = window.location.search;

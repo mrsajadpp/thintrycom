@@ -13,8 +13,8 @@ function User(props) {
 
   let [userData, setData] = useState({});
   let [profileData, setProfile] = useState({});
-  const [isFollowing, setIsFollowing] = useState();
-  const [isFollowingBack, setIsFollowingBack] = useState();
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowingBack, setIsFollowingBack] = useState(false);
 
   function setCookie(name, value, days) {
     const expires = new Date();
@@ -41,14 +41,14 @@ function User(props) {
   }
   // delete_cookie('userData')
 
-  useEffect(() => {
-    // Check if the user is already logged in using the cookie
-    let userData = getUserDataFromCookie();
-    if (!userData) {
-      navigate("/auth/login");
-      return; // No need to continue checking if already logged in
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   // Check if the user is already logged in using the cookie
+  //   let userData = getUserDataFromCookie();
+  //   if (!userData) {
+  //     navigate("/auth/login");
+  //     return; // No need to continue checking if already logged in
+  //   }
+  // }, [navigate]);
 
   useEffect(() => {
     // Default title
@@ -164,7 +164,11 @@ function User(props) {
         console.error('Fetching failed', error);
       }
     }
-    isFollowing();
+    if (userData) {
+      isFollowing();
+    } else {
+      setIsFollowing(false);
+    }
   }, [profileData]);
 
   useEffect(() => {
@@ -184,19 +188,27 @@ function User(props) {
         console.error('Fetching failed', error);
       }
     }
-    isFollowingBackFn();
+    if (userData) {
+      isFollowingBackFn();
+    } else {
+      setIsFollowingBack(false);
+    }
   }, [profileData]);
 
   const unfollow = async () => {
     try {
-      let response = await Axios.post('https://api.thintry.com/user/unfollow', { follower_id: userData._id, following_id: profileData._id }, {
-        headers: {
-          'Access-Control-Allow-Origin': true,
-        }
-      });
+      if (userData) {
+        let response = await Axios.post('https://api.thintry.com/user/unfollow', { follower_id: userData._id, following_id: profileData._id }, {
+          headers: {
+            'Access-Control-Allow-Origin': true,
+          }
+        });
 
-      if (response.data.status) {
-        setIsFollowing(false)
+        if (response.data.status) {
+          setIsFollowing(false);
+        }
+      } else {
+        navigate('/auth/login');
       }
     } catch (error) {
       console.error('Fetching failed', error);
@@ -205,14 +217,18 @@ function User(props) {
 
   const follow = async (e) => {
     try {
-      let response = await Axios.post('https://api.thintry.com/user/follow', { follower_id: userData._id, following_id: profileData._id }, {
-        headers: {
-          'Access-Control-Allow-Origin': true,
-        }
-      });
+      if (userData) {
+        let response = await Axios.post('https://api.thintry.com/user/follow', { follower_id: userData._id, following_id: profileData._id }, {
+          headers: {
+            'Access-Control-Allow-Origin': true,
+          }
+        });
 
-      if (response.data.status) {
-        setIsFollowing(true)
+        if (response.data.status) {
+          setIsFollowing(true)
+        }
+      } else {
+        navigate('/auth/login');
       }
     } catch (error) {
       console.error('Fetching failed', error);
