@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/* Login and signup css starts */
+a {
+  color: #6fbf7e !important;
+}
+
+.loginForm {
+  width: 100vw;
+  height: 100vh !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm .bannerArea {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm .bannerArea img {
+  width: 150px;
+}
+
+.loginForm .inputs {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm .inputs form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginForm .inputs .input {
+  width: 80%;
+  height: 50px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.loginForm .noerror-inp {
+  border-bottom: 2px solid rgb(58, 59, 60) !important;
+}
+
+.loginForm .inputs .input input {
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  color: #fff;
+}
+
+.loginForm .inputs .loginbtn {
+  width: 80%;
+  height: 50px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.loginForm .inputs .loginbtn button {
+  width: 100%;
+  height: 100%;
+  background-color: #6fbf7e;
+  border: none;
+  border-radius: 85px;
+}
+
+.loginForm .inputs .textarea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  height: 100px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  position: absolute;
+  left: 0;
+  top: -10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.input {
+  position: relative;
+}
+
+.error.show {
+  opacity: 1;
+}
+
+.servererror {
+  color: red;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.error-inp {
+  border-bottom: 2px solid red !important;
+  color: red !important;
+}
+
+.error-inp::placeholder {
+  color: red;
+}
+
+/* login and signup css end */
+
+/* Header style starts */
+.header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  background-color: #060002;
+  position: fixed;
+  top: 0px;
+  z-index: 777;
+}
+
+.header .hleft {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 10px;
+}
+
+.header .hleft a img {
+  width: 100px;
+}
+
+.header .hright {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .hright nav {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.header .hright button {
+  width: 80px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header style ends */
