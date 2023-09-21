@@ -13,22 +13,22 @@ export default async function Home() {
   let userLogged = await cookies.has('user');
   let userData = await cookies.get('user') ? cookies.get('user') : false;
 
-  async function fetchTags(uid) {
+  async function fetchTags() {
     try {
-      const response = await Axios.get('https://api.thintry.com/fetch/user/tags', {
-        params: { uid },
-      });
+      const response = await Axios.get('https://api.thintry.com/fetch/user/tags/all');
 
       if (response.data.status) {
         // Store tags in localStorage
         // localStorage.setItem('userTags', JSON.stringify(response.data.tags));
-        setTags(response.data.tags);
-        setIsLoading(false);
+        return response.data.tags;
       }
     } catch (error) {
       console.error('Fetching failed', error);
     }
   }
+
+  const tags = fetchTags();
+  console.log(tags)
 
 
   return (
