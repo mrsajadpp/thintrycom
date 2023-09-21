@@ -11,8 +11,7 @@ import { Axios } from 'axios';
 export default async function Home() {
   const cookies = cookie();
   let userLogged = await cookies.has('user');
-  let userData = await cookies.get('user');
-  userLogged ? console.log("") : redirect('/auth/login');
+  let userData = await cookies.get('user') ? cookies.get('user') : false;
 
   async function fetchTags(uid) {
     try {
