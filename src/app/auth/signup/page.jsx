@@ -13,8 +13,7 @@ export const metadata = {
 export default async function Login() {
   const cookies = cookie();
   let userLogged  = await cookies.has('user');
-  let isAuthenticated = await checkAuthentication('/auth/login', userLogged);
-  isAuthenticated ? '' : redirect('/profile');
+  userLogged ? redirect('/profile') : console.log("Please Signup.") ;
 
   return (
     <div>

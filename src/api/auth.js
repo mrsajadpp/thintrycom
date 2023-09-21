@@ -24,7 +24,7 @@ export async function checkAuthentication(url, cookie) {
 
   if (noneAuthUrl.includes(url)) {
     try {
-      // const response = await fetch('http://localhost:3002/auth/check'); // Replace with your actual authentication endpoint
+      // const response = await fetch('https://api.thintry.com/auth/check'); // Replace with your actual authentication endpoint
       // const data = await response.json();
       // console.log(data)
       if (cookie) {
@@ -38,7 +38,7 @@ export async function checkAuthentication(url, cookie) {
     }
   } else {
     try {
-      // const response = await fetch('http://localhost:3002/auth/check'); // Replace with your actual authentication endpoint
+      // const response = await fetch('https://api.thintry.com/auth/check'); // Replace with your actual authentication endpoint
       // const data = await response.json();
       // console.log(data)
       if (cookie) {

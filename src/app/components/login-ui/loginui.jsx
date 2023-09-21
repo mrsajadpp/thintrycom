@@ -17,7 +17,7 @@ export default function LoginUi() {
     let password = document.getElementById('password');
     try {
       const formData = await new FormData(event.target);
-      let response = await Axios.get('http://localhost:3002/auth/login', { params: { username: formData.get('username'), password: formData.get('password') } })
+      let response = await Axios.get('https://api.thintry.com/auth/login', { params: { username: formData.get('username'), password: formData.get('password') } })
 
       if (response.data.status) {
         
@@ -54,7 +54,7 @@ export default function LoginUi() {
                   if (newValue.length <= 0) {
                     username.classList.replace('noerror-inp', 'error-inp');
                   } else {
-                    Axios.get('http://localhost:3002/username/check', { params: { username: newValue } }, {
+                    Axios.get('https://api.thintry.com/username/check', { params: { username: newValue } }, {
                       headers: {
                         'Access-Control-Allow-Origin': true,
                       }

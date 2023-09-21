@@ -25,7 +25,7 @@ export default function SignupUi() {
         const formData = new FormData(form);
 
         try {
-            let response = await Axios.get('http://localhost:3002/auth/signup', { params: { firstname: formData.get('firstname'), lastname: formData.get('lastname'), username: formData.get('username'), password: formData.get('password'), email: formData.get('email') } }, {
+            let response = await Axios.get('https://api.thintry.com/auth/signup', { params: { firstname: formData.get('firstname'), lastname: formData.get('lastname'), username: formData.get('username'), password: formData.get('password'), email: formData.get('email') } }, {
                 headers: {
                     'Access-Control-Allow-Origin': true,
                 }

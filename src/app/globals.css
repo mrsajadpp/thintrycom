@@ -17,14 +17,16 @@
 }
 
 html {
-  scroll-behavior: smooth; 
+  scroll-behavior: smooth;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, 
+  background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  padding: 0px;
+  margin: 0px;
 }
 
 /* Login and signup css starts */
@@ -230,6 +232,39 @@ a {
   justify-content: center;
 }
 
+.deskmenu .profile {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 85px;
+}
+
+.deskmenu .profile.active {
+  width: 26px;
+  height: 26px;
+  border: 2px #6fbf7e solid;
+}
+
+.deskmenu .profile:hover {
+  width: 26px;
+  height: 26px;
+  border: 2px #6fbf7e solid;
+}
+
+.roundedPost {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #6fbf7e;
+  border-radius: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
 /* Header style ends */
 
 /* Footer style starts */
@@ -268,5 +303,25 @@ a {
     display: none;
   }
 }
+
+.footmenu .profile {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 85px;
+}
+
+.footmenu .profile.active {
+  width: 26px;
+  height: 26px;
+  border: 2px #6fbf7e solid;
+}
+
+.footmenu .profile:hover {
+  width: 26px;
+  height: 26px;
+  border: 2px #6fbf7e solid;
+}
+
 
 /* Footer style ends */

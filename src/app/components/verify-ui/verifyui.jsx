@@ -19,7 +19,7 @@ export default function VerifyUi() {
         let loginBtn = document.getElementById('loginBtn');
         if (otpInp.value.length >= 6) {
             try {
-                let response = await Axios.get('http://localhost:3002/auth/verify/check', { params: { otp: otpInp.value, userId } }, {
+                let response = await Axios.get('https://api.thintry.com/auth/verify/check', { params: { otp: otpInp.value, userId } }, {
                     headers: {
                         'Access-Control-Allow-Origin': true,
                     }

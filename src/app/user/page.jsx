@@ -10,12 +10,14 @@ export const metadata = {
 }
 
 export default async function User() {
-  let isAuthenticated = await checkAuthentication('/user');
-  isAuthenticated ? '' : redirect('/auth/login');
+  const cookies = cookie();
+  let userLogged = await cookies.has('user');
+  let userData = await cookies.get('user');
+  userLogged ? console.log("") : redirect('/auth/login');
   return (
     <main>
-      <HeaderUi />
-      <FooterUi />
+      <HeaderUi userData={userData.value} />
+      <FooterUi userData={userData.value} />
     </main>
   )
 }
