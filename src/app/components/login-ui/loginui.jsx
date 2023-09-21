@@ -1,33 +1,36 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+import jwt from 'jsonwebtoken';
+
 import { useRouter } from 'next/navigation';
 import Axios from 'axios';
-import Cookies from 'js-cookie';
 
-export default function LoginUi() {
+export default function LoginUi(props) {
   const router = useRouter();
-  let isAuthenticated = checkAuthentication('/auth/login');
-  isAuthenticated ? '' : redirect('/profile');
+  console.log(props.userLogged)
+  props.userLogged ? redirect('/profile') : console.log('');
 
   async function onSubmit(event) {
     event.preventDefault();
     let username = document.getElementById('username');
     let password = document.getElementById('password');
+    console.log('event')
     try {
       const formData = await new FormData(event.target);
-      let response = await Axios.get('https://api.thintry.com/auth/login', { params: { username: formData.get('username'), password: formData.get('password') } })
-
-      if (response.data.status) {
-        
-        console.log(response.data)
-        Cookies.set('user', JSON.stringify(response.data.user), { secure: true })
-        router.push('/profile')
-      } else {
-        username.classList.replace('noerror-inp', 'error-inp');
-        password.classList.replace('noerror-inp', 'error-inp');
+      let res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: formData.get('username'), password: formData.get('password') })
+      }).then((t) => t.json());
+      console.log(res.token)
+      if (res.token) {
+        const userData = jwt.decode(res.token)
+        console.log(userData)
       }
+      router.push('/profile')
     } catch (error) {
       console.error('Loginfailed', error);
       username.classList.replace('noerror-inp', 'error-inp');
@@ -37,7 +40,7 @@ export default function LoginUi() {
 
   return (
     <div>
-      <div className="loginForm">  
+      <div className="loginForm">
         <div className="bannerArea">
           <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} width={150} height={40.43} alt="Thintry a indian social media website." />
         </div>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+
 import { redirect } from 'next/navigation';
 import SignupUi from '@/app/components/signup-ui/signupui';
 import { cookies as cookie } from 'next/headers';

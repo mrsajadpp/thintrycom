@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { checkAuthentication } from '../../api/auth';
+
 import { redirect } from 'next/navigation';
 import HeaderUi from '../components/header-ui/headerui';
 import FooterUi from '../components/footer-ui/footerui';

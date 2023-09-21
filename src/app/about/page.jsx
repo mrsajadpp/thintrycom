@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { checkAuthentication } from '../../api/auth';
+
 import { redirect } from 'next/navigation';
 import { cookies as cookie } from 'next/headers';
 import HeaderUi from '../components/header-ui/headerui';

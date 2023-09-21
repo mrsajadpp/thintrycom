@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+
 import { useSearchParams, useRouter } from 'next/navigation';
 import Axios from 'axios'
 import Cookies from 'js-cookie';
