@@ -73,7 +73,7 @@ function FooterUi(props) {
                                         </div>
                                     ) : (
                                         <div className='profile'>
-                                            <Image src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile} width={30} height={30} alt="Thintry a indian social media website." />
+                                            <Image src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile} width={28} height={28} alt="Thintry a indian social media website." />
                                         </div>
                                     )}
                                 </>
@@ -85,7 +85,7 @@ function FooterUi(props) {
                                         </div>
                                     ) : (
                                         <div className='profile'>
-                                            <Image src={'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'} width={30} height={30} alt="Thintry a indian social media website." />
+                                            <Image src={'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'} width={28} height={28} alt="Thintry a indian social media website." />
                                         </div>
                                     )}
                                 </>

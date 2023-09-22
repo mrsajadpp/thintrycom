@@ -234,21 +234,21 @@ a {
 }
 
 .deskmenu .profile {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   overflow: hidden;
   border-radius: 85px;
 }
 
 .deskmenu .profile.active {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border: 2px #6fbf7e solid;
 }
 
 .deskmenu .profile:hover {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border: 2px #6fbf7e solid;
 }
 
@@ -306,21 +306,21 @@ a {
 }
 
 .footmenu .profile {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   overflow: hidden;
   border-radius: 85px;
 }
 
 .footmenu .profile.active {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border: 2px #6fbf7e solid;
 }
 
 .footmenu .profile:hover {
-  width: 26px;
-  height: 26px;
+  width: 25px;
+  height: 25px;
   border: 2px #6fbf7e solid;
 }
 
@@ -634,7 +634,6 @@ a {
 
 .user .material-icons {
   color: #6c7e8d;
-  float: right;
   display: inline-block;
   padding-top: 8px;
   margin-right: -18px;
@@ -891,7 +890,6 @@ a {
 .subtweet-content {
   width: 100%;
   color: white;
-  float: left;
   margin-bottom: 13px;
   display: inline-block;
   position: relative;
