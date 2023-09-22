@@ -32,6 +32,7 @@ body {
 /* Login and signup css starts */
 a {
   color: #6fbf7e;
+  text-decoration: none;
 }
 
 .loginForm {
@@ -292,7 +293,7 @@ a {
   background: transparent;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .footer {
     display: none;
   }

@@ -8,14 +8,12 @@ import Axios from 'axios';
 
 export default function LoginUi(props) {
   const router = useRouter();
-  console.log(props.userLogged)
   props.userLogged ? redirect('/profile') : console.log('');
 
   async function onSubmit(event) {
     event.preventDefault();
     let username = document.getElementById('username');
     let password = document.getElementById('password');
-    console.log('event')
     try {
       const formData = await new FormData(event.target);
       let res = await fetch('/api/login', {
@@ -25,12 +23,9 @@ export default function LoginUi(props) {
         },
         body: JSON.stringify({ username: formData.get('username'), password: formData.get('password') })
       }).then((t) => t.json());
-      console.log(res.token)
       if (res.token) {
-        const userData = jwt.decode(res.token)
-        console.log(userData)
+        router.push('/profile')
       }
-      router.push('/profile')
     } catch (error) {
       console.error('Loginfailed', error);
       username.classList.replace('noerror-inp', 'error-inp');

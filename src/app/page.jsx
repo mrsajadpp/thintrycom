@@ -10,10 +10,7 @@ import jwt from 'jsonwebtoken';
 export default async function Home() {
   const cookies = await cookie();
   let userLogged = await cookies.has('user-token');
-  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : null;
-
-  console.log('Login: ',userLogged);
-  console.log(userData.userData);
+  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : { userData: null };
 
   async function fetchTags() {
     try {

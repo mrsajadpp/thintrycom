@@ -13,7 +13,7 @@ export const metadata = {
 export default async function User() {
   const cookies = await cookie();
   let userLogged = await cookies.has('user-token');
-  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : null;
+  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : { userData: null };
   userLogged ? console.log("") : redirect('/auth/login');
   return (
     <main>

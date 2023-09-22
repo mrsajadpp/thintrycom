@@ -15,8 +15,6 @@ export default async function Login() {
   let userLogged = await cookies.has('user-token');
   userLogged ? redirect('/profile') : console.log("Please login.");
 
-  console.log(userLogged);
-
   return (
     <div>
       <LoginUi userLogged={userLogged} cookies={cookies} />
