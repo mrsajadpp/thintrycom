@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -45,6 +45,7 @@ const formatNumber = (value) => {
 
 
 function Tag(props) {
+    let router = useRouter();
     return (
         <div>
             {props.tag ? (
@@ -52,7 +53,7 @@ function Tag(props) {
                     <div className="tweet-container pt pb pr pl">
                         {/* User */}
                         <div className="user pr">
-                            <div className="userl" onClick={() => { redirect('/profile') }}>
+                            <div className="userl" onClick={() => { router.push('/user/' + props.tag.user.username) }}>
                                 <div className="profile">
                                     <Image src={
                                         props.tag.user.profile
