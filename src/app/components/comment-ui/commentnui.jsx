@@ -83,9 +83,10 @@ const formatNumber = (value) => {
 
 
 function CommentUi(props) {
+    console.log(props.reply)
     let router = useRouter();
-    const [likes, setLike] = React.useState(props.reply.upvote.length);
-    const [isLiked, setLiked] = React.useState(props.userData && props.reply.upvote.includes(props.userData._id) ? true : false);
+    const [likes, setLike] = React.useState(props.reply.upvote ? props.reply.upvote.length : 0);
+    const [isLiked, setLiked] = React.useState(props.userData && props.reply.upvote && props.reply.upvote.includes(props.userData._id) ? true : false);
 
     const handleLike = (event) => {
         if (isLiked) {
