@@ -11,8 +11,8 @@ export const metadata = {
 }
 
 export default async function Login() {
-  const cookies = cookie();
-  let userLogged  = await cookies.has('user');
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
   userLogged ? redirect('/profile') : console.log("Please Signup.") ;
 
   return (

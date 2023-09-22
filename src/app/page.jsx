@@ -5,11 +5,15 @@ import Tag from './components/tag-ui/tagui';
 import Axios from 'axios';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import jwt from 'jsonwebtoken';
 
 export default async function Home() {
-  const cookies = cookie();
-  let userLogged = await cookies.has('user');
-  let userData = await userLogged ? JSON.parse(cookies.get('user').value) : false;
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
+  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : null;
+
+  console.log('Login: ',userLogged);
+  console.log(userData.userData);
 
   async function fetchTags() {
     try {
@@ -30,12 +34,13 @@ export default async function Home() {
 
   return (
     <main>
-      <HeaderUi userData={userData.value} />
+      <HeaderUi userData={userData.userData} />
+      <FooterUi userData={userData.userData} />
       <div id="page">
         {tags ? (
           <>
             {tags.map((tag) => (
-              <Tag key={tag._id} tag={tag} userData={userData} />
+              <Tag key={tag._id} tag={tag} userData={userData.userData} />
             ))}
           </>
         ) : (
@@ -331,7 +336,6 @@ export default async function Home() {
           </SkeletonTheme>
         )}
       </div>
-      <FooterUi userData={userData.value} />
     </main>
   )
 }

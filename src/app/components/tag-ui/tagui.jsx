@@ -45,8 +45,6 @@ const formatNumber = (value) => {
 
 
 function Tag(props) {
-    console.log(props.tag.upvote[0])
-    console.log(props.userData);
     return (
         <div>
             {props.tag ? (

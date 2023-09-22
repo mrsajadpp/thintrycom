@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { cookies as cookie } from 'next/headers';
 import HeaderUi from '../components/header-ui/headerui';
 import FooterUi from '../components/footer-ui/footerui';
+import jwt from 'jsonwebtoken';
 
 export const metadata = {
   title: 'Profile - Thintry',
@@ -11,14 +12,14 @@ export const metadata = {
 }
 
 export default async function Profile() {
-  const cookies = cookie();
-  let userLogged = await cookies.has('user');
-  let userData = await cookies.get('user');
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
+  let userData = await userLogged ? jwt.decode(cookies.get('user-token').value) : null;
   userLogged ? console.log("") : redirect('/auth/login') ;
   return (
     <main>
-      <HeaderUi userData={userData.value} />
-      <FooterUi userData={userData.value} />
+      <HeaderUi userData={userData.userData} />
+      <FooterUi userData={userData.userData} />
     </main>
   )
 }

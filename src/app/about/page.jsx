@@ -17,8 +17,8 @@ export default async function About() {
   userLogged ? console.log("") : redirect('/auth/login');
   return (
     <main>
-      <HeaderUi userData={userData.value} />
-      <FooterUi userData={userData.value} />
+      <HeaderUi userData={userData.userData} />
+      <FooterUi userData={userData.userData} />
     </main>
   )
 }

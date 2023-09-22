@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 function HeaderUi(props) {
-    const userData = props.userData ? JSON.parse(props.userData) : false;
+    const userData = props.userData ? props.userData : false;
     const pathname = usePathname();
 
     const isPageActive = (path) => {

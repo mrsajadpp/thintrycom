@@ -11,10 +11,9 @@ export const metadata = {
 }
 
 export default async function Verify() {
-    const cookies = cookie();
-  let userLogged  = await cookies.has('user');
-  let isAuthenticated = await checkAuthentication('/auth/verify', userLogged);
-  isAuthenticated ? '' : redirect('/profile');
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
+  userLogged ? redirect('/profile') : '';
 
   return (
     <div>

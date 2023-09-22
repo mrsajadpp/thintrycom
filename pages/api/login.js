@@ -1,14 +1,17 @@
+// import { cookies as cookie } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
 const KEY = 'dmekdnendedhsdcwbshwbhwd';
 
 export default async function handler(req, res) {
+  // const cookies = await cookie();
   if (!req.body) {
     res.statusCode = 400;
     return res.json({ error: 'Invalid credentials!' });
   }
 
   const { username, password } = req.body;
+  console.log(req.body)
 
   try {
     // Use async/await to fetch data from the API using GET method
@@ -22,6 +25,11 @@ export default async function handler(req, res) {
         const token = jwt.sign({
           userData: resp.user
         }, KEY);
+
+        console.log(token);
+
+        // cookies.get('user-token', token)
+        res.setHeader('Set-Cookie', `user-token=${token}; Path=/; HttpOnly; SameSite=Strict;`);
 
         return res.json({ token });
       } else {

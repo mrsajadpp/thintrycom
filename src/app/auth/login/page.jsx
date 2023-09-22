@@ -11,10 +11,9 @@ export const metadata = {
 }
 
 export default async function Login() {
-  const cookies = cookie();
-  let userLogged  = await cookies.has('user');
-  console.log(userLogged)
-  userLogged ? redirect('/profile') : console.log("Please login.") ;
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
+  userLogged ? redirect('/profile') : console.log("Please login.");
 
   console.log(userLogged);
 
