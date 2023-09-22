@@ -284,7 +284,7 @@ function Tag(props) {
                 </SkeletonTheme>
             )}
             <div className="wrap pt">
-                {replies.slice(0, 2).map((reply) => reply.user ? (<CommentUi userData={props.userData} tag={props.tag} reply={reply} />) : (''))}
+                {replies.slice(0, 2).map((reply) => reply.user ? (<CommentUi key={reply._id} userData={props.userData} tag={props.tag} reply={reply} />) : (''))}
             </div>
         </div>
     )

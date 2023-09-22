@@ -84,8 +84,8 @@ const formatNumber = (value) => {
 
 function CommentUi(props) {
     let router = useRouter();
-    const [likes, setLike] = React.useState(props.tag.upvote.length);
-    const [isLiked, setLiked] = React.useState(props.userData && props.tag.upvote.includes(props.userData._id) ? true : false);
+    const [likes, setLike] = React.useState(props.reply.upvote.length);
+    const [isLiked, setLiked] = React.useState(props.userData && props.reply.upvote.includes(props.userData._id) ? true : false);
 
     const handleLike = (event) => {
         if (isLiked) {
@@ -98,12 +98,12 @@ function CommentUi(props) {
         if (!props.userData) {
             router.push('/auth/login')
         } else {
-            fetch('/api/like', {
+            fetch('/api/replylike', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_id: props.userData._id, tag_id: props.tag._id })
+                body: JSON.stringify({ user_id: props.userData._id, reply_id: props.reply._id })
             }).then((t) => t.json());
         }
     }

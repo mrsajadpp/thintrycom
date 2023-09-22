@@ -5,17 +5,29 @@ export default async function handler(req, res) {
         return res.json({ error: 'Invalid credentials!' });
     }
 
-    const { tag_id } = req.body;
-    console.log(tag_id)
+    const { user_id, reply_id } = req.body;
 
     try {
-        const response = await fetch(`https://api.thintry.com/fetch/tag/replies?tagId=${tag_id}`);
+        // Use async/await to fetch data from the API using GET method
+        const response = await fetch('https://api.thintry.com/tag/reply/upvote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Specify content type as JSON
+            },
+            body: JSON.stringify({
+                uid: user_id,
+                replyId: reply_id,
+            }),
+        });
+
+        console.log(response.status);
 
         if (response.status === 200) {
             const resp = await response.json();
+            console.log(resp)
 
             if (resp.status) {
-                return res.json(JSON.stringify(resp.replies));
+                return res.json(true);
             } else {
                 res.statusCode = 401;
                 return res.json({ error: 'Invalid credentials!' });
