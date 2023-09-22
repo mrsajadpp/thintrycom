@@ -27,6 +27,11 @@ body {
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
   padding: 0px;
   margin: 0px;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Login and signup css starts */
@@ -777,6 +782,7 @@ a {
   float: left;
   margin: 0;
   padding-bottom: 0px;
+  display: flex;
 }
 
 .wrap .info .name {
@@ -784,7 +790,10 @@ a {
   font-weight: 700;
   color: white;
   float: left;
-  margin-right: 6px;
+  /* margin-right: 6px; */
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
 .wrap .info .handle {
@@ -834,7 +843,7 @@ a {
   width: 54px;
   height: 54px;
   object-fit: cover;
-  border-radius: 58px;
+  border-radius: 8px;
   margin: 0px;
   box-sizing: border-box;
   z-index: 99;
