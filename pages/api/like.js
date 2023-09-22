@@ -6,7 +6,6 @@ export default async function handler(req, res) {
     }
 
     const { user_id, tag_id } = req.body;
-    console.log(req.body)
 
     try {
         // Use async/await to fetch data from the API using GET method
@@ -23,7 +22,6 @@ export default async function handler(req, res) {
 
         if (response.status === 200) {
             const resp = await response.json();
-            console.log(resp)
 
             if (resp.status) {
                 return res.json(true);
