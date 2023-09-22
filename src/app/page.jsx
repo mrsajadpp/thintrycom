@@ -39,6 +39,9 @@ export default async function Home() {
             {tags.map((tag) => (
               <Tag key={tag._id} tag={tag} userData={userData.userData} />
             ))}
+            <>
+              <div style={{ marginBottom: '60px' }}></div>
+            </>
           </>
         ) : (
           <SkeletonTheme baseColor="#0f0f0f" highlightColor="#0e0e0e">
@@ -102,37 +105,11 @@ export default async function Home() {
               <div className="icons">
                 <div className="ico">
                   <span><Skeleton width={30} height={30} /></span>
-                  {/* <div className="number">
-                            <span id={`up-count-${props.tag._id}`} className="up-count">
-                                {formatNumber(props.tag.upvote ? props.tag.upvote.length : '0')}
-                            </span>
-                        </div> */}
                 </div>
 
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
-
-                {/* <div className="ico">
-                        <span
-                            id={`dow-${props.tag._id}`}
-                            onClick={() => {
-                                handleDownvote(props.tag._id);
-                            }}
-                        >
-                            <box-icon
-                                type="solid"
-                                name="down-arrow"
-                                color={props.userData && props.tag.downvote.includes(props.userData._id) ? "#6fbf7e" : "#fff"}
-                                className="img"
-                            />
-                        </span>
-                        <div className="number">
-                            <span id={`dow-count-${props.tag._id}`} className="down-count">
-                                {formatNumber(props.tag.downvote ? props.tag.downvote.length : '')}
-                            </span>
-                        </div>
-                    </div> */}
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
@@ -198,37 +175,11 @@ export default async function Home() {
               <div className="icons">
                 <div className="ico">
                   <span><Skeleton width={30} height={30} /></span>
-                  {/* <div className="number">
-                            <span id={`up-count-${props.tag._id}`} className="up-count">
-                                {formatNumber(props.tag.upvote ? props.tag.upvote.length : '0')}
-                            </span>
-                        </div> */}
                 </div>
 
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
-
-                {/* <div className="ico">
-                        <span
-                            id={`dow-${props.tag._id}`}
-                            onClick={() => {
-                                handleDownvote(props.tag._id);
-                            }}
-                        >
-                            <box-icon
-                                type="solid"
-                                name="down-arrow"
-                                color={props.userData && props.tag.downvote.includes(props.userData._id) ? "#6fbf7e" : "#fff"}
-                                className="img"
-                            />
-                        </span>
-                        <div className="number">
-                            <span id={`dow-count-${props.tag._id}`} className="down-count">
-                                {formatNumber(props.tag.downvote ? props.tag.downvote.length : '')}
-                            </span>
-                        </div>
-                    </div> */}
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
@@ -294,37 +245,11 @@ export default async function Home() {
               <div className="icons">
                 <div className="ico">
                   <span><Skeleton width={30} height={30} /></span>
-                  {/* <div className="number">
-                            <span id={`up-count-${props.tag._id}`} className="up-count">
-                                {formatNumber(props.tag.upvote ? props.tag.upvote.length : '0')}
-                            </span>
-                        </div> */}
                 </div>
 
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
-
-                {/* <div className="ico">
-                        <span
-                            id={`dow-${props.tag._id}`}
-                            onClick={() => {
-                                handleDownvote(props.tag._id);
-                            }}
-                        >
-                            <box-icon
-                                type="solid"
-                                name="down-arrow"
-                                color={props.userData && props.tag.downvote.includes(props.userData._id) ? "#6fbf7e" : "#fff"}
-                                className="img"
-                            />
-                        </span>
-                        <div className="number">
-                            <span id={`dow-count-${props.tag._id}`} className="down-count">
-                                {formatNumber(props.tag.downvote ? props.tag.downvote.length : '')}
-                            </span>
-                        </div>
-                    </div> */}
                 <div className="ico">
                   <Skeleton width={30} height={30} />
                 </div>
