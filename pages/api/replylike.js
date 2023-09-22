@@ -20,11 +20,9 @@ export default async function handler(req, res) {
             }),
         });
 
-        console.log(response.status);
 
         if (response.status === 200) {
             const resp = await response.json();
-            console.log(resp)
 
             if (resp.status) {
                 return res.json(true);
