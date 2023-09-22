@@ -6,7 +6,6 @@ import Axios from 'axios';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import jwt from 'jsonwebtoken';
-import CommentUi from './components/comment-ui/commentnui';
 
 export default async function Home() {
   const cookies = await cookie();

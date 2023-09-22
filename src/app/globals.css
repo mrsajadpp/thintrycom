@@ -782,7 +782,6 @@ a {
   float: left;
   margin: 0;
   padding-bottom: 0px;
-  display: flex;
 }
 
 .wrap .info .name {
@@ -897,13 +896,13 @@ a {
 }
 
 .subtweet-content {
-  width: 100%;
+  width: 94%;
   color: white;
-  margin-bottom: 13px;
+  margin-bottom: 20px;
   display: inline-block;
   position: relative;
   padding-bottom: 26px;
-  line-height: 21px;
+  line-height: 26px;
   font-size: 16px;
 }
 
