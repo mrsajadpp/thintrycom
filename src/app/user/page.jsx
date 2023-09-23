@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import HeaderUi from '../components/header-ui/headerui';
 import FooterUi from '../components/footer-ui/footerui';
 import jwt from 'jsonwebtoken';
+import { cookies as cookie } from 'next/headers';
+
 
 export const metadata = {
   title: 'About - Thintry',
