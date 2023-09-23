@@ -119,7 +119,7 @@ function CommentUi(props) {
                             ? 'https://api.thintry.com' + props.reply.user.profile
                             : props.reply.user.profile
                         : 'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'
-                } width={60} height={60} alt="Thintry a indian social media website."
+                } width={60} height={60} alt={'@' + props.reply.user.username}
                     onError={(e) => {
                         e.target.src =
                             'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'; // Provide the default/fallback image URL here
