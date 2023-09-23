@@ -1,7 +1,8 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+import jwt from 'jsonwebtoken';
+
 import { redirect, useRouter } from 'next/navigation';
 import Axios from 'axios'
 
@@ -25,17 +26,25 @@ export default function SignupUi() {
         const formData = new FormData(form);
 
         try {
-            let response = await Axios.get('http://localhost:3002/auth/signup', { params: { firstname: formData.get('firstname'), lastname: formData.get('lastname'), username: formData.get('username'), password: formData.get('password'), email: formData.get('email') } }, {
-                headers: {
-                    'Access-Control-Allow-Origin': true,
-                }
-            })
+            // let response = await Axios.get('https://api.thintry.com/auth/signup', { params:  }, {
+            //     headers: {
+            //         'Access-Control-Allow-Origin': true,
+            //     }
+            // })
 
-            if (response.data.status) {
+            let res = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ firstname: formData.get('firstname'), lastname: formData.get('lastname'), username: formData.get('username'), password: formData.get('password'), email: formData.get('email') })
+            }).then((t) => t.json());
+
+            if (res.token) {
                 // Handle success, maybe redirect
-                const verificationCode = response.data.user.encrypted_verification_code; // Assuming your response includes the verification code
-                console.log(response.data)
-                router.push(`/auth/verify?code=${verificationCode}&uid=${response.data.user._id}`);
+                let userData = await jwt.decode(res.token);
+                const verificationCode = userData.userData.encrypted_verification_code; // Assuming your response includes the verification code
+                router.push(`/auth/verify?code=${verificationCode}&uid=${userData.userData._id}`);
             } else {
                 loginBtn.disabled = true;
                 loginBtn.style.opacity = '0.2';
@@ -61,7 +70,7 @@ export default function SignupUi() {
     return (
         <div className="loginForm">
             <div className="bannerArea">
-                <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} alt="" />
+                <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} width={150} height={40.43} alt="Thintry a indian social media website." />
             </div>
             <div className="inputs">
                 <form onSubmit={handleSubmit}>

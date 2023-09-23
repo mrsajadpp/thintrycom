@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-function HeaderUi(props) {
+function FooterUi(props) {
     const userData = props.userData ? props.userData : false;
     const pathname = usePathname();
 
@@ -12,15 +12,10 @@ function HeaderUi(props) {
         return pathname === path;
     };
     return (
-        <div className="header">
-            <div className="hleft">
-                <Link href="/">
-                    <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} width={100} height={26.95} alt="Thintry a indian social media website." />
-                </Link>
-            </div>
-            <div className="hright">
+        <div className="footer" id="footer">
+            <div className="icons">
                 <nav>
-                    <Link href="/" className='deskmenu'>
+                    <Link href={'/'}>
                         <button>
                             {isPageActive('/') ? (
                                 <svg aria-label="Home" className="_ab6-" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><path fill='#6fbf7e' d="M22 23h-6.001a1 1 0 0 1-1-1v-5.455a2.997 2.997 0 1 0-5.993 0V22a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V11.543a1.002 1.002 0 0 1 .31-.724l10-9.543a1.001 1.001 0 0 1 1.38 0l10 9.543a1.002 1.002 0 0 1 .31.724V22a1 1 0 0 1-1 1Z"></path></svg>
@@ -29,25 +24,33 @@ function HeaderUi(props) {
                             )}
                         </button>
                     </Link>
-                    <Link href="/search" id='searchBtn'>
-                        <button>
-                            {isPageActive('/search') ? (
-                                <svg aria-label="Explore" className="_ab6-" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><path fill='#6fbf7e' d="M18.5 10.5a8 8 0 1 1-8-8 8 8 0 0 1 8 8Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></path><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" x1="16.511" x2="21.643" y1="16.511" y2="21.643"></line></svg>
-                            ) : (
-                                <svg aria-label="Explore" className="_ab6-" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="16.511" x2="22" y1="16.511" y2="22"></line></svg>
-                            )}
-                        </button>
-                    </Link>
-                    <Link href="/messages" className='deskmenu'>
+                </nav>
+            </div>
+            <div className="icons">
+                <nav>
+                    <Link href="/messages">
                         <button>
                             {isPageActive('/messages') ? (
-                                <svg aria-label="Messenger" className="_ab6-" color="#6fbf7e" height="24" role="img" viewBox="0 0 24 24" width="24"><path fill='#6fbf7e' d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z" stroke="currentColor" strokeMiterlimit="10" strokeWidth="1.739"></path><path d="M17.79 10.132a.659.659 0 0 0-.962-.873l-2.556 2.05a.63.63 0 0 1-.758.002L11.06 9.47a1.576 1.576 0 0 0-2.277.42l-2.567 3.98a.659.659 0 0 0 .961.875l2.556-2.049a.63.63 0 0 1 .759-.002l2.452 1.84a1.576 1.576 0 0 0 2.278-.42Z" ></path></svg>
+                                <svg aria-label="Messenger" className="_ab6-" color="#6fbf7e" height="24" role="img" viewBox="0 0 24 24" width="24"><path fill='#6fbf7e' d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z" stroke="currentColor" strokeMiterlimit="10" strokeWidth="1.739"></path></svg>
                             ) : (
-                                <svg aria-label="Messenger" className="_ab6-" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="1.739"></path><path d="M17.79 10.132a.659.659 0 0 0-.962-.873l-2.556 2.05a.63.63 0 0 1-.758.002L11.06 9.47a1.576 1.576 0 0 0-2.277.42l-2.567 3.98a.659.659 0 0 0 .961.875l2.556-2.049a.63.63 0 0 1 .759-.002l2.452 1.84a1.576 1.576 0 0 0 2.278-.42Z" fillRule="evenodd"></path></svg>
+                                <svg aria-label="Messenger" className="_ab6-" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z" fill="none" stroke="currentColor" strokeMiterlimit="10" strokeWidth="1.739"></path></svg>
                             )}
                         </button>
                     </Link>
-                    <Link href="/notifications" className='deskmenu'>
+                </nav>
+            </div>
+            <div className="icons">
+                <nav>
+                    <Link href="/tag/new">
+                        <button>
+                        <svg aria-label="Home" className="x1lliihq x1n2onr6" color="rgb(245, 245, 245)" fill="rgb(245, 245, 245)" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Home</title><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg>
+                        </button>
+                    </Link>
+                </nav>
+            </div>
+            <div className="icons">
+                <nav>
+                    <Link href="/notifications">
                         <button>
                             {isPageActive('/notifications') ? (
                                 <svg aria-label="Notifications" className="x1lliihq x1n2onr6" color="#6fbf7e" fill="#6fbf7e" height="24" role="img" viewBox="0 0 24 24" width="24"><path fill='#6fbf7e' d="M17.075 1.987a5.852 5.852 0 0 0-5.07 2.66l-.008.012-.01-.014a5.878 5.878 0 0 0-5.062-2.658A6.719 6.719 0 0 0 .5 8.952c0 3.514 2.581 5.757 5.077 7.927.302.262.607.527.91.797l1.089.973c2.112 1.89 3.149 2.813 3.642 3.133a1.438 1.438 0 0 0 1.564 0c.472-.306 1.334-1.07 3.755-3.234l.978-.874c.314-.28.631-.555.945-.827 2.478-2.15 5.04-4.372 5.04-7.895a6.719 6.719 0 0 0-6.425-6.965Z"></path></svg>
@@ -56,7 +59,11 @@ function HeaderUi(props) {
                             )}
                         </button>
                     </Link>
-                    <Link href="/profile" className='deskmenu'>
+                </nav>
+            </div>
+            <div className="icons">
+                <nav>
+                    <Link href="/profile" className='footmenu'>
                         <button>
                             {userData ? (
                                 <>
@@ -66,7 +73,7 @@ function HeaderUi(props) {
                                         </div>
                                     ) : (
                                         <div className='profile'>
-                                            <Image src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile} width={30} height={30} alt="Thintry a indian social media website." />
+                                            <Image src={userData.profile.startsWith('/') ? 'https://api.thintry.com' + userData.profile : userData.profile} width={28} height={28} alt="Thintry a indian social media website." />
                                         </div>
                                     )}
                                 </>
@@ -78,7 +85,7 @@ function HeaderUi(props) {
                                         </div>
                                     ) : (
                                         <div className='profile'>
-                                            <Image src={'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'} width={30} height={30} alt="Thintry a indian social media website." />
+                                            <Image src={'https://i.postimg.cc/jqZBwHRD/bc75882d906b263fbe0550fe59dc7b21.jpg'} width={28} height={28} alt="Thintry a indian social media website." />
                                         </div>
                                     )}
                                 </>
@@ -87,15 +94,8 @@ function HeaderUi(props) {
                     </Link>
                 </nav>
             </div>
-            <div className="newBtn">
-                <Link href="/tag/new" id="postPlusBtn" className='deskmenu'>
-                    <button className='roundedPost'>
-                        <svg fill='#fff' width="30px" height="30px" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 -960 960 960" style={{ enableBackground: 'new 0 0 100 100' }}><path d="M772-603 602-771l56-56q23-23 56.5-23t56.5 23l56 56q23 23 24 55.5T829-660l-57 57Zm-58 59L290-120H120v-170l424-424 170 170Z" /></svg>
-                    </button>
-                </Link>
-            </div>
         </div>
     )
 }
 
-export default HeaderUi
+export default FooterUi

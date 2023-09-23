@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+
 import { useSearchParams, useRouter } from 'next/navigation';
 import Axios from 'axios'
 import Cookies from 'js-cookie';
@@ -11,28 +11,21 @@ export default function VerifyUi() {
     const router = useRouter();
     const hashedVerificationCode = searchParams.get('code');
     const userId = searchParams.get('uid');
-    console.log(hashedVerificationCode)
-    console.log(userId);
     const verify = async (event) => {
         event.preventDefault();
         let otpInp = document.getElementById('otp');
         let loginBtn = document.getElementById('loginBtn');
         if (otpInp.value.length >= 6) {
             try {
-                let response = await Axios.get('http://localhost:3002/auth/verify/check', { params: { otp: otpInp.value, userId } }, {
+                let res = await fetch('/api/verify', {
+                    method: 'POST',
                     headers: {
-                        'Access-Control-Allow-Origin': true,
-                    }
-                });
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ otp: otpInp.value, user_id: userId })
+                }).then((t) => t.json());
 
-                if (response.data.status) {
-                    // Store user data in a cookie
-                    // setCookie('userData', JSON.stringify(response.data.user), 1); // Cookie will expire in 1 day
-
-                    // Handle success, maybe redirect
-                    console.log(response.data)
-                    Cookies.set('user', JSON.stringify(response.data.user), { secure: true })
-                    console.log(data)
+                if (res.token) {
                     router.push(`/profile`);
                 } else {
                     loginBtn.disabled = true;
@@ -56,7 +49,7 @@ export default function VerifyUi() {
     function validateCode(e) {
         let otpInp = document.getElementById('otp');
         let loginBtn = document.getElementById('loginBtn');
-        if (otpInp.value < 6) {
+        if (otpInp.value.length < 6) {
             loginBtn.disabled = true;
             loginBtn.style.opacity = '0.2';
             otpInp.classList.replace('noerror-inp', 'error-inp');
@@ -69,7 +62,7 @@ export default function VerifyUi() {
     return (
         <div className="loginForm">
             <div className="bannerArea">
-                <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} alt="" />
+                <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} width={150} height={40.43} alt="Thintry a indian social media website." />
             </div>
             <div className="inputs">
                 <form onSubmit={verify}>

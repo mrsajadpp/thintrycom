@@ -1,7 +1,9 @@
 import Image from 'next/image'
-import { checkAuthentication } from '../../api/auth';
+
 import { redirect } from 'next/navigation';
 import { cookies as cookie } from 'next/headers';
+import HeaderUi from '../components/header-ui/headerui';
+import FooterUi from '../components/footer-ui/footerui';
 
 export const metadata = {
   title: 'About - Thintry',
@@ -11,11 +13,12 @@ export const metadata = {
 export default async function About() {
   const cookies = cookie();
   let userLogged = await cookies.has('user');
-  let isAuthenticated = await checkAuthentication('/about', userLogged);
-  isAuthenticated ? '' : redirect('/auth/login');
+  let userData = await cookies.get('user');
+  userLogged ? console.log("") : redirect('/auth/login');
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>About</h1>
+    <main>
+      <HeaderUi userData={userData.userData} />
+      <FooterUi userData={userData.userData} />
     </main>
   )
 }

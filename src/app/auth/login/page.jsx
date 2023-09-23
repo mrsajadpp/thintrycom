@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+
 import { redirect } from 'next/navigation';
 import LoginUi from '@/app/components/login-ui/loginui';
 import { cookies as cookie } from 'next/headers';
@@ -11,16 +11,13 @@ export const metadata = {
 }
 
 export default async function Login() {
-  const cookies = cookie();
-  let userLogged  = await cookies.has('user');
-  let isAuthenticated = await checkAuthentication('/auth/login', userLogged);
-  isAuthenticated ? '' : redirect('/profile');
-
-  console.log(userLogged);
+  const cookies = await cookie();
+  let userLogged = await cookies.has('user-token');
+  userLogged ? redirect('/profile') : console.log("Please login.");
 
   return (
     <div>
-      <LoginUi />
+      <LoginUi userLogged={userLogged} cookies={cookies} />
     </div>
   )
 }

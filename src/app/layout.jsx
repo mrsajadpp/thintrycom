@@ -2,6 +2,7 @@ import './globals.css';
 import { Inter } from 'next/font/google'
 import Head from 'next/head';
 import HeaderUi from './components/header-ui/headerui';
+import FooterUi from './components/footer-ui/footerui';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,8 +19,8 @@ export default async function RootLayout({ children }) {
         <link rel="stylesheet" href="style.css" />
       </Head>
       <body className={inter.className}>
-        <HeaderUi />
         {children}
+        <script src="https://thintry.com/boxicons/dist/boxicons.js"></script>
       </body>
     </html>
   )

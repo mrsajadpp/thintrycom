@@ -1,15 +1,14 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuthentication } from '../../../api/auth';
+import jwt from 'jsonwebtoken';
+
 import { useRouter } from 'next/navigation';
 import Axios from 'axios';
-import Cookies from 'js-cookie';
 
-export default function LoginUi() {
+export default function LoginUi(props) {
   const router = useRouter();
-  let isAuthenticated = checkAuthentication('/auth/login');
-  isAuthenticated ? '' : redirect('/profile');
+  props.userLogged ? redirect('/profile') : console.log('');
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -17,16 +16,15 @@ export default function LoginUi() {
     let password = document.getElementById('password');
     try {
       const formData = await new FormData(event.target);
-      let response = await Axios.get('http://localhost:3002/auth/login', { params: { username: formData.get('username'), password: formData.get('password') } })
-
-      if (response.data.status) {
-        
-        console.log(response.data)
-        Cookies.set('user', JSON.stringify(response.data.user), { secure: true })
+      let res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: formData.get('username'), password: formData.get('password') })
+      }).then((t) => t.json());
+      if (res.token) {
         router.push('/profile')
-      } else {
-        username.classList.replace('noerror-inp', 'error-inp');
-        password.classList.replace('noerror-inp', 'error-inp');
       }
     } catch (error) {
       console.error('Loginfailed', error);
@@ -39,7 +37,7 @@ export default function LoginUi() {
     <div>
       <div className="loginForm">
         <div className="bannerArea">
-          <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} alt="" />
+          <Image src={'https://thintry.com/static/media/logo.c665fb185383ae55fbf0.png'} width={150} height={40.43} alt="Thintry a indian social media website." />
         </div>
         <div className="inputs">
           <form onSubmit={onSubmit}>
@@ -54,7 +52,7 @@ export default function LoginUi() {
                   if (newValue.length <= 0) {
                     username.classList.replace('noerror-inp', 'error-inp');
                   } else {
-                    Axios.get('http://localhost:3002/username/check', { params: { username: newValue } }, {
+                    Axios.get('https://api.thintry.com/username/check', { params: { username: newValue } }, {
                       headers: {
                         'Access-Control-Allow-Origin': true,
                       }
